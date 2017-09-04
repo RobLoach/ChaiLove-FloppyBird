@@ -1,0 +1,16 @@
+class Assets {
+	var assets
+
+	def Assets() {
+		this.assets = [
+			"pipe-up": graphics.newImage("assets/pipe-up.png"),
+			"pipe-down": graphics.newImage("assets/pipe-down.png"),
+			"pipe": graphics.newImage("assets/pipe.png"),
+			"bird": graphics.newImage("assets/bird.png")
+		]
+	}
+
+	def get(name) {
+		return this.assets[name]
+	}
+}

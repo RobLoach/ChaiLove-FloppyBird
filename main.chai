@@ -1,0 +1,121 @@
+global fontbig
+global bird
+global assets
+global pipes = []
+global pipetimer = 0.0f
+global pipetimerCountdown = 1.4f
+global score = 0
+global openingSize = 75.0f
+global openingSizeRange = 10.0f
+global flapTimer = 0.0f
+global flapTimerMax = 0.10f
+
+def conf(t) {
+	t.window.width = 640;
+	t.window.height = 480;
+}
+
+def load() {
+	graphics.setBackgroundColor(78, 192, 202)
+	filesystem.load("Assets.chai")
+	filesystem.load("Bird.chai")
+	filesystem.load("Pipe.chai")
+
+	assets = Assets()
+	fontbig = graphics.newFont("assets/font_bignumbers.png", 24, 36, "0123456789")
+	bird = Bird(assets)
+
+	resetGame()
+}
+
+def resetGame() {
+	pipes.clear()
+	addPipe()
+	bird.reset()
+	score = 0
+	openingSize = 75.0f
+	openingSizeRange = 10.0f
+	pipetimer = 0.0f
+	flapTimer = 0.0f
+	openingSize = 70.0f
+}
+
+def addPipe() {
+	// Find out where the pipes should be positioned.
+	var pipeImage := assets.get("pipe-up")
+	var opening = math.random(pipeImage.getHeight() + openingSize, graphics.getHeight() - pipeImage.getHeight() - openingSize)
+	var openSize = openingSize + math.random(-openingSizeRange, openingSizeRange)
+
+	// Add the pipes to the game.
+	pipes.push_back(Pipe(assets, opening, true, openSize))
+	pipes.push_back(Pipe(assets, opening, false, openSize))
+}
+
+def draw() {
+	// Draw the Bird
+	bird.draw()
+
+	// Draw all the pipes
+	for (pipe : pipes) {
+		pipe.draw()
+	}
+
+	// Print the score.
+	graphics.setFont(fontbig)
+	graphics.print(to_string(score), graphics.getWidth() / 2, 30)
+}
+
+def update(delta) {
+	// Update the bird position, resetting if needed.
+	if (bird.update(delta) == false) {
+		resetGame()
+		return
+	}
+
+	// Update all pipes.
+	var removePipe = -1
+	var reset = false
+	for (var i = 0; i < pipes.size(); ++i) {
+
+		if (pipes[i].collide(bird)) {
+			reset = true
+			break
+		}
+
+		// Update will return false if we are to remove it.
+		if (pipes[i].update(delta, bird.speed) == false) {
+			removePipe = i
+		}
+
+		// Count the score
+		if (bird.x > pipes[i].x + pipes[i].width / 2 && pipes[i].top && pipes[i].scored == false) {
+			score += 1
+			pipes[i].scored = true
+		}
+	}
+
+	// See if we are removing an old pipe.
+	if (removePipe >= 0) {
+		pipes.erase_at(removePipe)
+	}
+
+	// Add a new pipe if needed.
+	pipetimer += delta
+	if (pipetimer > pipetimerCountdown) {
+		pipetimer = 0.0f
+		addPipe()
+	}
+
+	if (reset) {
+		resetGame()
+	}
+
+	flapTimer += delta
+}
+
+def joystickpressed(joy, button) {
+	if (flapTimer > flapTimerMax) {
+		bird.flap()
+		flapTimer = 0.0f
+	}
+}

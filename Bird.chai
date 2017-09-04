@@ -1,0 +1,70 @@
+class Bird {
+	var x
+	var y
+	var width
+	var height
+	var yspeed
+	var speed
+	var ygravity
+	var img
+	var sourcequad
+	var animationslide
+
+	def Bird(assets) {
+		this.x = 80.0f
+		this.speed = 150.0f
+		this.y = 100.0f
+		this.yspeed = 0.0f
+		this.ygravity = 1000.0f
+		this.sourcequad = Quad()
+		this.animationslide = 2
+		this.animtimer = 0.0f
+
+		this.img := assets.get("bird")
+		this.sourcequad.width = this.img.getWidth()
+		this.sourcequad.height = this.img.getHeight() / 4
+		this.sourcequad.x = 0
+		this.sourcequad.y = 0
+		this.width = this.img.getWidth()
+		this.height = this.img.getHeight() / 4
+	}
+
+	def draw() {
+		this.sourcequad.y = this.animationslide * this.img.getHeight() / 4
+		graphics.draw(this.img, this.sourcequad, this.x, this.y)
+	}
+
+	def update(delta) {
+		this.animtimer += delta
+		if (this.animtimer > 0.1f) {
+			this.animtimer = 0
+			this.animationslide += 1
+			if (this.animationslide > 3) {
+				this.animationslide = 0
+			}
+		}
+
+		this.yspeed += this.ygravity * delta
+		this.y += this.yspeed * delta
+
+		if (this.y + this.height > graphics.getHeight()) {
+			return false
+		}
+
+		if (this.yspeed < 0 && this.y < 0) {
+			this.yspeed = 0
+			this.y = 0
+		}
+
+		return true
+	}
+
+	def flap() {
+		this.yspeed = -280.0f
+	}
+
+	def reset() {
+		this.y = graphics.getHeight() / 5
+		this.flap()
+	}
+}

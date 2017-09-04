@@ -1,0 +1,78 @@
+class Pipe {
+	var x
+	var y
+	var scored
+	var width
+	var height
+	var img
+	var pipeImage
+	var top
+	var openingHeight
+
+	def Pipe(assets, opening, top, openingHeight) {
+		this.scored = false
+		this.openingHeight = openingHeight
+		this.x = graphics.getWidth()
+		this.top = top
+		this.sourcequad = Quad()
+
+		if (top) {
+			this.y = opening - this.openingHeight
+			this.img := assets.get("pipe-down")
+		}
+		else {
+			this.y = opening + this.openingHeight
+			this.img := assets.get("pipe-up")
+		}
+		this.width = this.img.getWidth()
+		this.pipeImage := assets.get("pipe")
+	}
+
+	def draw() {
+		graphics.draw(this.img, this.x, this.y)
+
+		if (this.top) {
+			for (var i = 0; i < this.y; ++i) {
+				graphics.draw(this.pipeImage, this.x, i)
+			}
+		}
+		else {
+			for (var j = this.y + this.img.getHeight(); j < graphics.getHeight(); ++j) {
+				graphics.draw(this.pipeImage, this.x, j)
+			}
+		}
+	}
+
+	def update(delta, speed) {
+		this.x -= delta * speed
+		if (this.x + this.img.getWidth() < 0) {
+			return false
+		}
+		return true
+	}
+
+	def collide(bird) {
+		var x = this.x
+		var y = 0
+		var height = 0
+
+		if (this.top) {
+			y = 0
+			height = this.y + this.img.getHeight()
+		}
+		else {
+			y = this.y
+			height = graphics.getHeight() - this.y
+		}
+		if (x < bird.x + bird.width) {
+			if (x + this.width > bird.x) {
+				if (y < bird.y + bird.height) {
+					if (y + height > bird.y) {
+						return true
+					}
+				}
+			}
+		}
+		return false
+	}
+}
