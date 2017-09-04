@@ -1,4 +1,4 @@
-# chaigame-flappybird
+# ChaiGame: Flappy Bird
 
 [Flappy Bird](https://en.wikipedia.org/wiki/Flappy_Bird) re-implementation using [ChaiGame](https://github.com/robloach/chaigame).
 
