@@ -6,7 +6,13 @@ class Assets {
 			"pipe-up": graphics.newImage("assets/pipe-up.png"),
 			"pipe-down": graphics.newImage("assets/pipe-down.png"),
 			"pipe": graphics.newImage("assets/pipe.png"),
-			"bird": graphics.newImage("assets/bird.png")
+			"bird": graphics.newImage("assets/bird.png"),
+			"die": sound.newSoundData("assets/sounds/die.wav"),
+			"hit": sound.newSoundData("assets/sounds/hit.wav"),
+			"point": sound.newSoundData("assets/sounds/point.wav"),
+			"swooshing": sound.newSoundData("assets/sounds/swooshing.wav"),
+			"wing": sound.newSoundData("assets/sounds/wing.wav"),
+			"music": sound.newSoundData("assets/sounds/music.wav")
 		]
 	}
 

@@ -9,6 +9,7 @@ class Bird {
 	var img
 	var sourcequad
 	var animationslide
+	var flapSound
 
 	def Bird(assets) {
 		this.x = 80.0f
@@ -27,6 +28,8 @@ class Bird {
 		this.sourcequad.y = 0
 		this.width = this.img.getWidth()
 		this.height = this.img.getHeight() / 4
+
+		this.flapSound := assets.get("wing")
 	}
 
 	def draw() {
@@ -48,6 +51,7 @@ class Bird {
 		this.y += this.yspeed * delta
 
 		if (this.y + this.height > graphics.getHeight()) {
+			assets.get("die").play()
 			return false
 		}
 
@@ -59,12 +63,15 @@ class Bird {
 		return true
 	}
 
-	def flap() {
+	def flap(mute) {
 		this.yspeed = -280.0f
+		if (mute == false) {
+			this.flapSound.play()
+		}
 	}
 
 	def reset() {
 		this.y = graphics.getHeight() / 5
-		this.flap()
+		this.flap(true)
 	}
 }

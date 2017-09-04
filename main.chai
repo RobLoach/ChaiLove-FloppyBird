@@ -5,6 +5,7 @@ global pipes = []
 global pipetimer = 0.0f
 global pipetimerCountdown = 1.4f
 global score = 0
+global openingSizeStart = 75.0f
 global openingSize = 75.0f
 global openingSizeRange = 10.0f
 global flapTimer = 0.0f
@@ -22,6 +23,8 @@ def load() {
 	filesystem.load("Pipe.chai")
 
 	assets = Assets()
+	assets.get("music").setLooping(true)
+	assets.get("music").play()
 	fontbig = graphics.newFont("assets/font_bignumbers.png", 24, 36, "0123456789")
 	bird = Bird(assets)
 
@@ -79,6 +82,7 @@ def update(delta) {
 
 		if (pipes[i].collide(bird)) {
 			reset = true
+			assets.get("hit").play()
 			break
 		}
 
@@ -89,9 +93,14 @@ def update(delta) {
 
 		// Count the score
 		if (bird.x > pipes[i].x + pipes[i].width / 2 && pipes[i].top && pipes[i].scored == false) {
-			score += 1
+			addScore()
 			pipes[i].scored = true
 		}
+	}
+
+	if (reset) {
+		resetGame()
+		return
 	}
 
 	// See if we are removing an old pipe.
@@ -106,16 +115,17 @@ def update(delta) {
 		addPipe()
 	}
 
-	if (reset) {
-		resetGame()
-	}
-
 	flapTimer += delta
 }
 
 def joystickpressed(joy, button) {
 	if (flapTimer > flapTimerMax) {
-		bird.flap()
+		bird.flap(false)
 		flapTimer = 0.0f
 	}
+}
+
+def addScore() {
+	score += 1
+	assets.get("point").play()
 }
