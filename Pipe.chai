@@ -37,7 +37,7 @@ class Pipe {
 			}
 		}
 		else {
-			for (var j = this.y + this.img.getHeight(); j < graphics.getHeight(); ++j) {
+			for (var j = this.y + this.img.getHeight(); j < landTop; ++j) {
 				graphics.draw(this.pipeImage, this.x, j)
 			}
 		}

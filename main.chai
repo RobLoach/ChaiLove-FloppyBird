@@ -10,6 +10,9 @@ global openingSize = 75.0f
 global openingSizeRange = 10.0f
 global flapTimer = 0.0f
 global flapTimerMax = 0.10f
+global landTop = 0
+global landX = 0.0f
+global skyX = 0.0f
 
 def conf(t) {
 	t.window.width = 640;
@@ -28,6 +31,8 @@ def load() {
 	fontbig = graphics.newFont("assets/font_bignumbers.png", 24, 36, "0123456789")
 	bird = Bird(assets)
 
+	landTop = graphics.getHeight() - assets.get("land").getHeight()
+
 	resetGame()
 }
 
@@ -41,12 +46,13 @@ def resetGame() {
 	pipetimer = 0.0f
 	flapTimer = 0.0f
 	openingSize = 70.0f
+	landX = 0.0f
 }
 
 def addPipe() {
 	// Find out where the pipes should be positioned.
 	var pipeImage := assets.get("pipe-up")
-	var opening = math.random(pipeImage.getHeight() + openingSize, graphics.getHeight() - pipeImage.getHeight() - openingSize)
+	var opening = math.random(pipeImage.getHeight() + openingSize, landTop - pipeImage.getHeight() - openingSize)
 	var openSize = openingSize + math.random(-openingSizeRange, openingSizeRange)
 
 	// Add the pipes to the game.
@@ -55,6 +61,17 @@ def addPipe() {
 }
 
 def draw() {
+
+	var sky := assets.get("sky")
+	for (var i = 0; (i - 1) * sky.getWidth() <= graphics.getWidth(); ++i) {
+		graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
+	}
+
+	var land := assets.get("land")
+	for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
+		graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
+	}
+
 	// Draw the Bird
 	bird.draw()
 
@@ -65,7 +82,7 @@ def draw() {
 
 	// Print the score.
 	graphics.setFont(fontbig)
-	graphics.print(to_string(score), graphics.getWidth() / 2, 30)
+	graphics.print(to_string(score), graphics.getWidth() / 2 - 30, 30)
 }
 
 def update(delta) {
@@ -91,13 +108,14 @@ def update(delta) {
 			removePipe = i
 		}
 
-		// Count the score
+		// Count the score.
 		if (bird.x > pipes[i].x + pipes[i].width / 2 && pipes[i].top && pipes[i].scored == false) {
 			addScore()
 			pipes[i].scored = true
 		}
 	}
 
+	// There was a reset switch triggered.
 	if (reset) {
 		resetGame()
 		return
@@ -113,6 +131,16 @@ def update(delta) {
 	if (pipetimer > pipetimerCountdown) {
 		pipetimer = 0.0f
 		addPipe()
+	}
+
+	landX += bird.speed * delta
+	if (landX >= assets.get("land").getWidth()) {
+		landX = 0.0f
+	}
+
+	skyX += bird.speed / 2 * delta
+	if (skyX >= assets.get("sky").getWidth()) {
+		skyX = 0.0f
 	}
 
 	flapTimer += delta

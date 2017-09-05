@@ -50,7 +50,7 @@ class Bird {
 		this.yspeed += this.ygravity * delta
 		this.y += this.yspeed * delta
 
-		if (this.y + this.height > graphics.getHeight()) {
+		if (this.y + this.height > landTop) {
 			assets.get("die").play()
 			return false
 		}
