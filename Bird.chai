@@ -55,9 +55,9 @@ class Bird {
 			return false
 		}
 
-		if (this.yspeed < 0 && this.y < 0) {
+		if (this.yspeed < 0 && this.y < assets.get("top").getHeight()) {
 			this.yspeed = 0
-			this.y = 0
+			this.y = assets.get("top").getHeight()
 		}
 
 		return true
@@ -71,7 +71,7 @@ class Bird {
 	}
 
 	def reset() {
-		this.y = graphics.getHeight() / 5
+		this.y = graphics.getHeight() / 3
 		this.flap(true)
 	}
 }

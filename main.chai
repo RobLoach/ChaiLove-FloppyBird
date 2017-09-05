@@ -13,6 +13,7 @@ global flapTimerMax = 0.10f
 global landTop = 0
 global landX = 0.0f
 global skyX = 0.0f
+global topX = 0.0f
 
 def conf(t) {
 	t.window.width = 640;
@@ -30,7 +31,6 @@ def load() {
 	assets.get("music").play()
 	fontbig = graphics.newFont("assets/font_bignumbers.png", 24, 36, "0123456789")
 	bird = Bird(assets)
-
 	landTop = graphics.getHeight() - assets.get("land").getHeight()
 
 	resetGame()
@@ -52,7 +52,7 @@ def resetGame() {
 def addPipe() {
 	// Find out where the pipes should be positioned.
 	var pipeImage := assets.get("pipe-up")
-	var opening = math.random(pipeImage.getHeight() + openingSize, landTop - pipeImage.getHeight() - openingSize)
+	var opening = math.random(assets.get("top").getHeight() + pipeImage.getHeight() + openingSize, landTop - pipeImage.getHeight() - openingSize)
 	var openSize = openingSize + math.random(-openingSizeRange, openingSizeRange)
 
 	// Add the pipes to the game.
@@ -61,7 +61,6 @@ def addPipe() {
 }
 
 def draw() {
-
 	var sky := assets.get("sky")
 	for (var i = 0; (i - 1) * sky.getWidth() <= graphics.getWidth(); ++i) {
 		graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
@@ -70,6 +69,11 @@ def draw() {
 	var land := assets.get("land")
 	for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
 		graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
+	}
+
+	var top := assets.get("top")
+	for (var i = 0; (i - 1) * top.getWidth() <= graphics.getWidth(); ++i) {
+		graphics.draw(top, i * top.getWidth() - topX, 0)
 	}
 
 	// Draw the Bird
@@ -138,6 +142,11 @@ def update(delta) {
 		landX = 0.0f
 	}
 
+	topX += bird.speed * delta
+	if (topX >= assets.get("top").getWidth()) {
+		topX = 0.0f
+	}
+
 	skyX += bird.speed / 2 * delta
 	if (skyX >= assets.get("sky").getWidth()) {
 		skyX = 0.0f
@@ -151,6 +160,10 @@ def joystickpressed(joy, button) {
 		bird.flap(false)
 		flapTimer = 0.0f
 	}
+}
+
+def mousepressed(x, y, button) {
+	joystickpressed(0, 0)
 }
 
 def addScore() {

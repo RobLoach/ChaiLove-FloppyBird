@@ -9,6 +9,7 @@ class Assets {
 			"bird": graphics.newImage("assets/bird.png"),
 			"land": graphics.newImage("assets/land.png"),
 			"sky": graphics.newImage("assets/sky.png"),
+			"top": graphics.newImage("assets/ceiling.png"),
 			"die": sound.newSoundData("assets/sounds/die.wav"),
 			"hit": sound.newSoundData("assets/sounds/hit.wav"),
 			"point": sound.newSoundData("assets/sounds/point.wav"),

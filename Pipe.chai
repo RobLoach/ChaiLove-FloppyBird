@@ -32,7 +32,7 @@ class Pipe {
 		graphics.draw(this.img, this.x, this.y)
 
 		if (this.top) {
-			for (var i = 0; i < this.y; ++i) {
+			for (var i = assets.get("top").getHeight(); i < this.y; ++i) {
 				graphics.draw(this.pipeImage, this.x, i)
 			}
 		}
