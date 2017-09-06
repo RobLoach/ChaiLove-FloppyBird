@@ -14,6 +14,7 @@ global landTop = 0
 global landX = 0.0f
 global skyX = 0.0f
 global topX = 0.0f
+global highQuality = true
 
 def conf(t) {
 	t.window.width = 640;
@@ -61,19 +62,40 @@ def addPipe() {
 }
 
 def draw() {
-	var sky := assets.get("sky")
-	for (var i = 0; (i - 1) * sky.getWidth() <= graphics.getWidth(); ++i) {
-		graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
+	if (highQuality) {
+		var sky := assets.get("sky")
+		for (var i = 0; (i - 1) * sky.getWidth() <= graphics.getWidth(); ++i) {
+			graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
+		}
 	}
 
 	var land := assets.get("land")
-	for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
-		graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
+	if (highQuality) {
+		for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
+			graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
+		}
+	}
+	else {
+		graphics.setColor(84, 56, 71)
+		var landTop = graphics.getHeight() - land.getHeight() + 2
+		graphics.line(0, graphics.getHeight() - land.getHeight(), graphics.getWidth(), graphics.getHeight() - land.getHeight())
+		graphics.line(0, graphics.getHeight() - land.getHeight() + 1, graphics.getWidth(), graphics.getHeight() - land.getHeight() + 1)
+		graphics.setColor(215, 168, 76)
+		graphics.rectangle("fill", 0, landTop, graphics.getWidth(), graphics.getHeight() - landTop)
 	}
 
 	var top := assets.get("top")
-	for (var i = 0; (i - 1) * top.getWidth() <= graphics.getWidth(); ++i) {
-		graphics.draw(top, i * top.getWidth() - topX, 0)
+	if (highQuality) {
+		for (var i = 0; (i - 1) * top.getWidth() <= graphics.getWidth(); ++i) {
+			graphics.draw(top, i * top.getWidth() - topX, 0)
+		}
+	}
+	else {
+		graphics.setColor(84, 56, 71)
+		graphics.line(0, top.getHeight() - 2, graphics.getWidth(), top.getHeight() - 2)
+		graphics.line(0, top.getHeight() - 1, graphics.getWidth(), top.getHeight() - 1)
+		graphics.setColor(192, 112, 0)
+		graphics.rectangle("fill", 0, 0, graphics.getWidth(), top.getHeight() - 2)
 	}
 
 	// Draw the Bird
@@ -146,6 +168,13 @@ def update(delta) {
 	}
 
 	flapTimer += delta
+
+	if (highQuality) {
+		var fps = timer.getFPS()
+		if (fps > 10 && fps < 40) {
+			highQuality = false
+		}
+	}
 }
 
 def joystickpressed(joy, button) {
