@@ -33,10 +33,10 @@ def load() {
 	bird = Bird(assets)
 	landTop = graphics.getHeight() - assets.get("land").getHeight()
 
-	resetGame()
+	reset()
 }
 
-def resetGame() {
+def reset() {
 	pipes.clear()
 	addPipe()
 	bird.reset()
@@ -92,19 +92,18 @@ def draw() {
 def update(delta) {
 	// Update the bird position, resetting if needed.
 	if (bird.update(delta) == false) {
-		resetGame()
+		reset()
 		return
 	}
 
 	// Update all pipes.
 	var removePipe = -1
-	var reset = false
 	for (var i = 0; i < pipes.size(); ++i) {
 
 		if (pipes[i].collide(bird)) {
-			reset = true
 			assets.get("hit").play()
-			break
+			reset()
+			return
 		}
 
 		// Update will return false if we are to remove it.
@@ -117,12 +116,6 @@ def update(delta) {
 			addScore()
 			pipes[i].scored = true
 		}
-	}
-
-	// There was a reset switch triggered.
-	if (reset) {
-		resetGame()
-		return
 	}
 
 	// See if we are removing an old pipe.
