@@ -62,40 +62,19 @@ def addPipe() {
 }
 
 def draw() {
-	if (highQuality) {
-		var sky := assets.get("sky")
-		for (var i = 0; (i - 1) * sky.getWidth() <= graphics.getWidth(); ++i) {
-			graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
-		}
+	var sky := assets.get("sky")
+	for (var i = 0; (i - 1) * sky.getWidth() <= graphics.getWidth(); ++i) {
+		graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
 	}
 
 	var land := assets.get("land")
-	if (highQuality) {
-		for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
-			graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
-		}
-	}
-	else {
-		graphics.setColor(84, 56, 71)
-		var landTop = graphics.getHeight() - land.getHeight() + 2
-		graphics.line(0, graphics.getHeight() - land.getHeight(), graphics.getWidth(), graphics.getHeight() - land.getHeight())
-		graphics.line(0, graphics.getHeight() - land.getHeight() + 1, graphics.getWidth(), graphics.getHeight() - land.getHeight() + 1)
-		graphics.setColor(215, 168, 76)
-		graphics.rectangle("fill", 0, landTop, graphics.getWidth(), graphics.getHeight() - landTop)
+	for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
+		graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
 	}
 
 	var top := assets.get("top")
-	if (highQuality) {
-		for (var i = 0; (i - 1) * top.getWidth() <= graphics.getWidth(); ++i) {
-			graphics.draw(top, i * top.getWidth() - topX, 0)
-		}
-	}
-	else {
-		graphics.setColor(84, 56, 71)
-		graphics.line(0, top.getHeight() - 2, graphics.getWidth(), top.getHeight() - 2)
-		graphics.line(0, top.getHeight() - 1, graphics.getWidth(), top.getHeight() - 1)
-		graphics.setColor(192, 112, 0)
-		graphics.rectangle("fill", 0, 0, graphics.getWidth(), top.getHeight() - 2)
+	for (var i = 0; (i - 1) * top.getWidth() <= graphics.getWidth(); ++i) {
+		graphics.draw(top, i * top.getWidth() - topX, 0)
 	}
 
 	// Draw the Bird
