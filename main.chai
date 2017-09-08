@@ -13,7 +13,6 @@ global flapTimerMax = 0.10f
 global landTop = 0
 global landX = 0.0f
 global skyX = 0.0f
-global topX = 0.0f
 global highQuality = true
 
 def conf(t) {
@@ -53,7 +52,7 @@ def reset() {
 def addPipe() {
 	// Find out where the pipes should be positioned.
 	var pipeImage := assets.get("pipe-up")
-	var opening = math.random(assets.get("top").getHeight() + pipeImage.getHeight() + openingSize, landTop - pipeImage.getHeight() - openingSize)
+	var opening = math.random(0 + pipeImage.getHeight() + openingSize, landTop - pipeImage.getHeight() - openingSize)
 	var openSize = openingSize + math.random(-openingSizeRange, openingSizeRange)
 
 	// Add the pipes to the game.
@@ -72,11 +71,6 @@ def draw() {
 	var land := assets.get("land")
 	for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
 		graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
-	}
-
-	var top := assets.get("top")
-	for (var i = 0; (i - 1) * top.getWidth() <= graphics.getWidth(); ++i) {
-		graphics.draw(top, i * top.getWidth() - topX, 0)
 	}
 
 	// Draw the Bird
@@ -136,11 +130,6 @@ def update(delta) {
 	landX += bird.speed * delta
 	if (landX >= assets.get("land").getWidth()) {
 		landX = 0.0f
-	}
-
-	topX += bird.speed * delta
-	if (topX >= assets.get("top").getWidth()) {
-		topX = 0.0f
 	}
 
 	skyX += bird.speed / 2 * delta

@@ -32,7 +32,7 @@ class Pipe {
 		graphics.draw(this.img, this.x, this.y)
 		if (highQuality) {
 			if (this.top) {
-				for (var i = assets.get("top").getHeight(); i < this.y; ++i) {
+				for (var i = 0; i < this.y; ++i) {
 					graphics.draw(this.pipeImage, this.x, i)
 				}
 			}
@@ -45,7 +45,7 @@ class Pipe {
 		}
 
 		if (this.top) {
-			var topPipe = assets.get("top").getHeight()
+			var topPipe = 0
 			graphics.setColor(84, 56, 71)
 			graphics.line(this.x + 2, topPipe, this.x + 2, this.y)
 			graphics.line(this.x + 3, topPipe, this.x + 3, this.y)

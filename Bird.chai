@@ -55,9 +55,9 @@ class Bird {
 			return false
 		}
 
-		if (this.yspeed < 0 && this.y < assets.get("top").getHeight()) {
+		if (this.yspeed < 0 && this.y < 0) {
 			this.yspeed = 0
-			this.y = assets.get("top").getHeight()
+			this.y = 0
 		}
 
 		return true
