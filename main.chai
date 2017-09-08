@@ -62,9 +62,11 @@ def addPipe() {
 }
 
 def draw() {
-	var sky := assets.get("sky")
-	for (var i = 0; (i - 1) * sky.getWidth() <= graphics.getWidth(); ++i) {
-		graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
+	if (highQuality) {
+		var sky := assets.get("sky")
+		for (var i = 0; (i - 1) * sky.getWidth() <= graphics.getWidth(); ++i) {
+			graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
+		}
 	}
 
 	var land := assets.get("land")
