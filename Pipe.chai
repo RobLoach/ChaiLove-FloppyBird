@@ -30,16 +30,40 @@ class Pipe {
 
 	def draw() {
 		graphics.draw(this.img, this.x, this.y)
+		if (highQuality) {
+			if (this.top) {
+				for (var i = assets.get("top").getHeight(); i < this.y; ++i) {
+					graphics.draw(this.pipeImage, this.x, i)
+				}
+			}
+			else {
+				for (var j = this.y + this.img.getHeight(); j < landTop; ++j) {
+					graphics.draw(this.pipeImage, this.x, j)
+				}
+			}
+			return
+		}
 
 		if (this.top) {
-			for (var i = assets.get("top").getHeight(); i < this.y; ++i) {
-				graphics.draw(this.pipeImage, this.x, i)
-			}
+			var topPipe = assets.get("top").getHeight()
+			graphics.setColor(84, 56, 71)
+			graphics.line(this.x + 2, topPipe, this.x + 2, this.y)
+			graphics.line(this.x + 3, topPipe, this.x + 3, this.y)
+			graphics.line(this.x + this.pipeImage.getWidth() - 3, topPipe, this.x + this.pipeImage.getWidth() - 3, this.y)
+			graphics.line(this.x + this.pipeImage.getWidth() - 4, topPipe, this.x + this.pipeImage.getWidth() - 4, this.y)
+			graphics.setColor(85, 128, 34)
+			graphics.rectangle("fill", this.x + 4, topPipe, this.pipeImage.getWidth() - 9, this.y - topPipe)
 		}
 		else {
-			for (var j = this.y + this.img.getHeight(); j < landTop; ++j) {
-				graphics.draw(this.pipeImage, this.x, j)
-			}
+			var bottomPipeTop = this.y + this.img.getHeight()
+			var bottomPipeBottom = graphics.getHeight() - assets.get("land").getHeight()
+			graphics.setColor(84, 56, 71)
+			graphics.line(this.x + 2, bottomPipeTop, this.x + 2, bottomPipeBottom)
+			graphics.line(this.x + 3, bottomPipeTop, this.x + 3, bottomPipeBottom)
+			graphics.line(this.x + this.pipeImage.getWidth() - 3, bottomPipeTop, this.x + this.pipeImage.getWidth() - 3, bottomPipeBottom)
+			graphics.line(this.x + this.pipeImage.getWidth() - 4, bottomPipeTop, this.x + this.pipeImage.getWidth() - 4, bottomPipeBottom)
+			graphics.setColor(85, 128, 34)
+			graphics.rectangle("fill", this.x + 4, bottomPipeTop, this.pipeImage.getWidth() - 9, bottomPipeBottom - bottomPipeTop - 1)
 		}
 	}
 
