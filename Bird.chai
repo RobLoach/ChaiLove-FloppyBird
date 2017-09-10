@@ -39,11 +39,11 @@ class Bird {
 
 	def update(delta) {
 		this.animtimer += delta
-		if (this.animtimer > 0.1f) {
+		if (this.animtimer > 0.12f) {
 			this.animtimer = 0
 			this.animationslide += 1
 			if (this.animationslide > 3) {
-				this.animationslide = 0
+				this.animationslide = 3
 			}
 		}
 
@@ -65,6 +65,7 @@ class Bird {
 
 	def flap(mute) {
 		this.yspeed = -280.0f
+		this.animationslide = 0
 		if (mute == false) {
 			this.flapSound.play()
 		}
