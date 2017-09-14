@@ -1,4 +1,3 @@
-global fontbig
 global bird
 global assets
 global pipes = []
@@ -14,7 +13,6 @@ global landTop = 0
 global landX = 0.0f
 global skyX = 0.0f
 global highQuality = true
-global fontpixel
 
 def conf(t) {
 	t.window.title = "Floppy Bird";
@@ -31,8 +29,6 @@ def load() {
 	assets = Assets()
 	assets.get("music").setLooping(true)
 	assets.get("music").play()
-	fontbig = graphics.newFont("assets/font_bignumbers.png", 24, 36, "0123456789")
-	fontpixel = graphics.newFont("assets/font_pixel-18x16.png", 18, 16, " !*+,-./0123\"456789:;<=#>?@ABCDEFG$HIJKLMNOPQ%RSTUWXYZ[&/\\]^_''(){|}~ ")
 	bird = Bird(assets)
 	landTop = graphics.getHeight() - assets.get("land").getHeight()
 
@@ -85,11 +81,11 @@ def draw() {
 	}
 
 	// Print the score.
-	graphics.setFont(fontbig)
+	graphics.setFont(assets.get("font-big"))
 	graphics.print(to_string(score), graphics.getWidth() / 2 - 30, 30)
 
 	// FPS
-	graphics.setFont(fontpixel)
+	graphics.setFont(assets.get("font-pixel"))
 	graphics.print("FPS " + to_string(timer.getFPS()), 10, graphics.getHeight() - 20)
 }
 
