@@ -13,6 +13,7 @@ global landTop = 0
 global landX = 0.0f
 global skyX = 0.0f
 global highQuality = true
+global highscore = 0
 
 def conf(t) {
 	t.window.title = "Floppy Bird";
@@ -87,6 +88,10 @@ def draw() {
 	// FPS
 	graphics.setFont(assets.get("font-pixel"))
 	graphics.print("FPS " + to_string(timer.getFPS()), 10, graphics.getHeight() - 20)
+
+
+	// Highscore
+	graphics.print("BEST " + to_string(highscore), graphics.getWidth() - 150, graphics.getHeight() - 20)
 }
 
 def update(delta) {
@@ -164,4 +169,26 @@ def mousepressed(x, y, button) {
 def addScore() {
 	score += 1
 	assets.get("point").play()
+
+	// Update the highscore.
+	if (score > highscore) {
+		highscore = score
+	}
+}
+
+/**
+ * Callback to save the current state as a JSON object.
+ */
+def savestate() {
+	var info = ["highscore": highscore]
+	return to_json(info)
+}
+
+/**
+ * Callback to load the state from a JSON object.
+ */
+def loadstate(data) {
+	var info = from_json(data)
+	highscore = info["highscore"]
+	return true
 }
