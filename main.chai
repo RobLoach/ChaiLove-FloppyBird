@@ -104,7 +104,7 @@ def update(delta) {
 	// Update all pipes.
 	var removePipe = -1
 	for (var i = 0; i < pipes.size(); ++i) {
-
+		// Check collisions with any pipes.
 		if (pipes[i].collide(bird)) {
 			assets.get("hit").play()
 			reset()

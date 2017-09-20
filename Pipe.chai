@@ -12,7 +12,8 @@ class Pipe {
 	def Pipe(assets, opening, top, openingHeight) {
 		this.scored = false
 		this.openingHeight = openingHeight
-		this.x = graphics.getWidth()
+		// Make sure the position is of floating point.
+		this.x = graphics.getWidth() * 1.0f
 		this.top = top
 		this.sourcequad = Quad()
 
