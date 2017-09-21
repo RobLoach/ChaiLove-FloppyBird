@@ -31,7 +31,7 @@ class Pipe {
 
 	def draw() {
 		graphics.draw(this.img, this.x, this.y)
-		if (highQuality) {
+		if (config.options["highquality"]) {
 			if (this.top) {
 				for (var i = 0; i < this.y; ++i) {
 					graphics.draw(this.pipeImage, this.x, i)

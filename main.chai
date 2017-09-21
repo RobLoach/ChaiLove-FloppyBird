@@ -12,7 +12,6 @@ global flapTimerMax = 0.10f
 global landTop = 0
 global landX = 0.0f
 global skyX = 0.0f
-global highQuality = true
 global highscore = 0
 
 def conf(t) {
@@ -61,7 +60,7 @@ def addPipe() {
 }
 
 def draw() {
-	if (highQuality) {
+	if (config.options["highquality"]) {
 		var sky := assets.get("sky")
 		for (var i = 0; (i - 1) * sky.getWidth() <= graphics.getWidth(); ++i) {
 			graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
@@ -146,13 +145,6 @@ def update(delta) {
 	}
 
 	flapTimer += delta
-
-	if (highQuality) {
-		var fps = timer.getFPS()
-		if (fps > 10 && fps < 40) {
-			highQuality = false
-		}
-	}
 }
 
 def joystickpressed(joy, button) {
