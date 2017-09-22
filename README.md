@@ -8,19 +8,19 @@
 
 1. Run [RetroArch](http://retroarch.com/)
 
-2. Install the [ChaiGame](https://github.com/robloach/chaigame) core through RetroArch's online updater.
+2. Install the [ChaiGame](https://github.com/robloach/chaigame) core through RetroArch's Online Updater → Core Updater → ChaiGame
 
-3. Download the latest [ChaiGame Floppy Bird release](https://github.com/RobLoach/ChaiGame-FloppyBird/releases)
+3. Download the latest [ChaiGame Floppy Bird release](https://github.com/RobLoach/ChaiGame-FloppyBird/releases) at Online Updater → Content Downloader → ChaiGame → Floppy Bird
 
-4. Load the `.chaigame` file through Load Content
+4. Load the `.chaigame` or `main.chai` file through Load Content
+
+### Command Line
 
 Alternatively, it is possible to run it through the command line:
-```
-retroarch -L chaigame_libretro.so FloppyBird.chaigame
-```
+
+    retroarch -L chaigame_libretro.so FloppyBird.chaigame
 
 ## Development
 
-```
-retroarch -L chaigame_libretro.so main.chai
-```
+    retroarch -L chaigame_libretro.so main.chai
+
