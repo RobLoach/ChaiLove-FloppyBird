@@ -1,6 +1,6 @@
 # LICENSE
 
-[ChaiGame Floppy Bird](http://github.com/robloach/chaigame-floppybird) is released under the MIT License:
+[ChaiLove Floppy Bird](http://github.com/robloach/chailove-floppybird) is released under the MIT License:
 
 > Copyright (C) 2017+ [Rob Loach](http://robloach.net)
 >
