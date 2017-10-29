@@ -13,28 +13,50 @@ global landTop = 0
 global landX = 0.0f
 global skyX = 0.0f
 global highscore = 0
+global currentState = "menu"
+global states
 
+/**
+ * Configuration for ChaiLove.
+ */
 def conf(t) {
 	t.window.title = "Floppy Bird";
 	t.window.width = 480;
 	t.window.height = 480;
 }
 
+/**
+ * Load all the game assets and files.
+ */
 def load() {
+	// Set up the background.
 	graphics.setBackgroundColor(78, 192, 202)
+
+	// Load all asset files.
 	filesystem.load("Assets.chai")
 	filesystem.load("Bird.chai")
 	filesystem.load("Pipe.chai")
 
+	// Construct the assets.
 	assets = Assets()
-	assets.get("music").setLooping(true)
-	assets.get("music").play()
 	bird = Bird(assets)
 	landTop = graphics.getHeight() - assets.get("land").getHeight()
 
+	// Set up the Game States
+	filesystem.load("MainMenuState.chai")
+	filesystem.load("GameState.chai")
+	states = [
+		"menu": MainMenuState(),
+		"game": GameState()
+	]
+
+	// Bring all the game entities to ground zero.
 	reset()
 }
 
+/**
+ * Bring all entites to ground zero.
+ */
 def reset() {
 	pipes.clear()
 	addPipe()
@@ -48,6 +70,9 @@ def reset() {
 	landX = 0.0f
 }
 
+/**
+ * Add a pipe to the pipe queue.
+ */
 def addPipe() {
 	// Find out where the pipes should be positioned.
 	var pipeImage := assets.get("pipe-up")
@@ -59,17 +84,20 @@ def addPipe() {
 	pipes.push_back(Pipe(assets, opening, false, openSize))
 }
 
+/**
+ * Draw all entities on the screen.
+ */
 def draw() {
+	// Draw the background (land and sky).
+	var land := assets.get("land")
+	for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
+		graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
+	}
 	if (config.options["highquality"]) {
 		var sky := assets.get("sky")
 		for (var i = 0; (i - 1) * sky.getWidth() <= graphics.getWidth(); ++i) {
 			graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
 		}
-	}
-
-	var land := assets.get("land")
-	for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
-		graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
 	}
 
 	// Draw the Bird
@@ -80,84 +108,49 @@ def draw() {
 		pipe.draw()
 	}
 
+	// Draw the current game state.
+	states[currentState].draw()
+
 	// Print the score.
-	graphics.setFont(assets.get("font-big"))
-	graphics.print(to_string(score), graphics.getWidth() / 2 - 30, 30)
+	if (score > 0) {
+		graphics.setFont(assets.get("font-big"))
+		var scoretext = to_string(score)
+		var scorewidth = assets.get("font-big").getWidth(scoretext)
+		graphics.print(to_string(score), graphics.getWidth() / 2 - scorewidth / 2, 30)
+	}
 
 	// FPS
 	graphics.setFont(assets.get("font-pixel"))
 	graphics.print("FPS " + to_string(timer.getFPS()), 10, graphics.getHeight() - 20)
 
-
 	// Highscore
 	graphics.print("BEST " + to_string(highscore), graphics.getWidth() - 150, graphics.getHeight() - 20)
 }
 
+/**
+ * Callback; Update the game.
+ */
 def update(delta) {
-	// Update the bird position, resetting if needed.
-	if (bird.update(delta) == false) {
-		reset()
-		return
-	}
-
-	// Update all pipes.
-	var removePipe = -1
-	for (var i = 0; i < pipes.size(); ++i) {
-		// Check collisions with any pipes.
-		if (pipes[i].collide(bird)) {
-			assets.get("hit").play()
-			reset()
-			return
-		}
-
-		// Update will return false if we are to remove it.
-		if (pipes[i].update(delta, bird.speed) == false) {
-			removePipe = i
-		}
-
-		// Count the score.
-		if (bird.x > pipes[i].x + pipes[i].width / 2 && pipes[i].top && pipes[i].scored == false) {
-			addScore()
-			pipes[i].scored = true
-		}
-	}
-
-	// See if we are removing an old pipe.
-	if (removePipe >= 0) {
-		pipes.erase_at(removePipe)
-	}
-
-	// Add a new pipe if needed.
-	pipetimer += delta
-	if (pipetimer > pipetimerCountdown) {
-		pipetimer = 0.0f
-		addPipe()
-	}
-
-	landX += bird.speed * delta
-	if (landX >= assets.get("land").getWidth()) {
-		landX = 0.0f
-	}
-
-	skyX += bird.speed / 2 * delta
-	if (skyX >= assets.get("sky").getWidth()) {
-		skyX = 0.0f
-	}
-
-	flapTimer += delta
+	states[currentState].update(delta)
 }
 
+/**
+ * Callback; Called when a joystick button is hit.
+ */
 def joystickpressed(joy, button) {
-	if (flapTimer > flapTimerMax) {
-		bird.flap(false)
-		flapTimer = 0.0f
-	}
+	states[currentState].joystickpressed()
 }
 
+/**
+ * Callback; Called when a mouse button is tapped.
+ */
 def mousepressed(x, y, button) {
 	joystickpressed(0, 0)
 }
 
+/**
+ * Adds a point to the score.
+ */
 def addScore() {
 	score += 1
 	assets.get("point").play()
@@ -169,7 +162,7 @@ def addScore() {
 }
 
 /**
- * Callback to save the current state as a JSON object.
+ * Callback; Save the current state as a JSON string.
  */
 def savestate() {
 	var info = ["highscore": highscore]
@@ -177,10 +170,12 @@ def savestate() {
 }
 
 /**
- * Callback to load the state from a JSON object.
+ * Callback; Load the state from the given JSON string.
  */
 def loadstate(data) {
 	var info = from_json(data)
 	highscore = info["highscore"]
+	reset()
+	currentState = "menu"
 	return true
 }

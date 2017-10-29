@@ -18,6 +18,10 @@ class Assets {
 			"font-big": graphics.newFont("assets/font_bignumbers.png", 24, 36, "0123456789"),
 			"font-pixel": graphics.newFont("assets/font_pixel-18x16.png", 18, 16, " !*+,-./0123\"456789:;<=#>?@ABCDEFG$HIJKLMNOPQ%RSTUWXYZ[&/\\]^_''(){|}~ ")
 		]
+
+		// Set up the music.
+		this.assets["music"].setLooping(true)
+		this.assets["music"].play()
 	}
 
 	def get(name) {

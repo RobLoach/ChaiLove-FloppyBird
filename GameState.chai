@@ -1,0 +1,66 @@
+class GameState {
+	def GameState() {
+		// Nothing.
+	}
+
+	def update(delta) {
+		// Update the bird position, resetting if needed.
+		if (bird.update(delta) == false) {
+			currentState = "menu"
+			return
+		}
+
+		// Update all pipes.
+		var removePipe = -1
+		for (var i = 0; i < pipes.size(); ++i) {
+			// Check collisions with any pipes.
+			if (pipes[i].collide(bird)) {
+				assets.get("hit").play()
+				currentState = "menu"
+				return
+			}
+
+			// Update will return false if we are to remove it.
+			if (pipes[i].update(delta, bird.speed) == false) {
+				removePipe = i
+			}
+
+			// Count the score.
+			if (bird.x > pipes[i].x + pipes[i].width / 2 && pipes[i].top && pipes[i].scored == false) {
+				addScore()
+				pipes[i].scored = true
+			}
+		}
+
+		// See if we are removing an old pipe.
+		if (removePipe >= 0) {
+			pipes.erase_at(removePipe)
+		}
+
+		// Add a new pipe if needed.
+		pipetimer += delta
+		if (pipetimer > pipetimerCountdown) {
+			pipetimer = 0.0f
+			addPipe()
+		}
+
+		landX += bird.speed * delta
+		if (landX >= assets.get("land").getWidth()) {
+			landX = 0.0f
+		}
+
+		skyX += bird.speed / 2 * delta
+		if (skyX >= assets.get("sky").getWidth()) {
+			skyX = 0.0f
+		}
+
+		flapTimer += delta
+	}
+
+	def joystickpressed() {
+		if (flapTimer > flapTimerMax) {
+			bird.flap(false)
+			flapTimer = 0.0f
+		}
+	}
+}
