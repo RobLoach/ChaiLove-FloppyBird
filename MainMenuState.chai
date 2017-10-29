@@ -3,6 +3,7 @@ class MainMenuState {
 	var titlefont
 
 	def MainMenuState() {
+		// TODO Fix the font
 		this.title = "FLOPPZ BIRD"
 		this.description = "PRESS ANZ BUTTON"
 	}
@@ -14,12 +15,18 @@ class MainMenuState {
 		var textheight = assets.get("font-pixel").getHeight()
 		graphics.print(this.title, graphics.getWidth() / 2 - textwidth / 2, graphics.getHeight() / 4)
 	
+		// Help text
 		textwidth = assets.get("font-pixel").getWidth(this.description)
 		textheight = assets.get("font-pixel").getHeight()
-		graphics.print(this.description, graphics.getWidth() / 2 - textwidth / 2, graphics.getHeight() / 4 + textheight * 4)
+		graphics.print(this.description, graphics.getWidth() / 2 - textwidth / 2, graphics.getHeight() / 4 + textheight * 5)
 	}
 
-	def update() {
-		pipes.clear()
+	def update(delta) {
+		// TODO Make the title animate.
+	}
+
+	def joystickpressed() {
+		currentState = "game"
+		reset()
 	}
 }

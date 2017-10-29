@@ -35,14 +35,12 @@ def load() {
 	landTop = graphics.getHeight() - assets.get("land").getHeight()
 
 	filesystem.load("MainMenuState.chai")
+	filesystem.load("GameState.chai")
 	
-	var mainMenu = MainMenuState()
-	var game = GameState()
 	states = [
-		"menu": mainMenu,
-		"game": game
+		"menu": MainMenuState(),
+		"game": GameState()
 	]
-	print("HOIIHIHI")
 
 	reset()
 }
@@ -72,18 +70,33 @@ def addPipe() {
 }
 
 def draw() {
+
+	var land := assets.get("land")
+	for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
+		graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
+	}
 	if (config.options["highquality"]) {
 		var sky := assets.get("sky")
 		for (var i = 0; (i - 1) * sky.getWidth() <= graphics.getWidth(); ++i) {
 			graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
 		}
 	}
+	// Draw the Bird
+	bird.draw()
 
-	var land := assets.get("land")
-	for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
-		graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
+	// Draw all the pipes
+	for (pipe : pipes) {
+		pipe.draw()
 	}
 	states[currentState].draw()
+
+	// Print the score.
+	if (score > 0) {
+		graphics.setFont(assets.get("font-big"))
+		var scoretext = to_string(score)
+		var scorewidth = assets.get("font-big").getWidth(scoretext)
+		graphics.print(to_string(score), graphics.getWidth() / 2 - scorewidth / 2, 30)
+	}
 
 	// FPS
 	graphics.setFont(assets.get("font-pixel"))
@@ -94,68 +107,11 @@ def draw() {
 }
 
 def update(delta) {
-	// Update the bird position, resetting if needed.
-	if (bird.update(delta) == false) {
-		reset()
-		return
-	}
-
-	// Update all pipes.
-	var removePipe = -1
-	for (var i = 0; i < pipes.size(); ++i) {
-		// Check collisions with any pipes.
-		if (pipes[i].collide(bird)) {
-			assets.get("hit").play()
-			reset()
-			return
-		}
-
-		// Update will return false if we are to remove it.
-		if (pipes[i].update(delta, bird.speed) == false) {
-			removePipe = i
-		}
-
-		// Count the score.
-		if (bird.x > pipes[i].x + pipes[i].width / 2 && pipes[i].top && pipes[i].scored == false) {
-			addScore()
-			pipes[i].scored = true
-		}
-	}
-
-	// See if we are removing an old pipe.
-	if (removePipe >= 0) {
-		pipes.erase_at(removePipe)
-	}
-
-	// Add a new pipe if needed.
-	pipetimer += delta
-	if (pipetimer > pipetimerCountdown) {
-		pipetimer = 0.0f
-		addPipe()
-	}
-
-	landX += bird.speed * delta
-	if (landX >= assets.get("land").getWidth()) {
-		landX = 0.0f
-	}
-
-	skyX += bird.speed / 2 * delta
-	if (skyX >= assets.get("sky").getWidth()) {
-		skyX = 0.0f
-	}
-
-	flapTimer += delta
+	states[currentState].update(delta)
 }
 
 def joystickpressed(joy, button) {
-	if (flapTimer > flapTimerMax) {
-		bird.flap(false)
-		flapTimer = 0.0f
-	}
-
-	if (currentState == "menu") {
-		currentState = "game"
-	}
+	states[currentState].joystickpressed()
 }
 
 def mousepressed(x, y, button) {
@@ -186,5 +142,7 @@ def savestate() {
 def loadstate(data) {
 	var info = from_json(data)
 	highscore = info["highscore"]
+	reset()
+	currentState = "menu"
 	return true
 }
