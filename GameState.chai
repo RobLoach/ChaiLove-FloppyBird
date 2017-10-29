@@ -1,0 +1,31 @@
+class GameState {
+
+	def GameState() {
+		this.title = "FLOPPY BIRD"
+	}
+
+	def draw() {
+		// Print the Title.
+		graphics.setFont(assets.get("font-pixel"))
+		var textwidth = assets.get("font-pixel").getWidth(this.title)
+		graphics.print(this.title, graphics.getWidth() / 2 - textwidth / 2, 30)
+
+		// Print the score.
+		graphics.setFont(assets.get("font-big"))
+		var scoretext = to_string(score)
+		var scorewidth = assets.get("font-big").getWidth(scoretext)
+		graphics.print(to_string(score), graphics.getWidth() / 2 - scorewidth / 2, 30)
+
+		// Draw the Bird
+		bird.draw()
+
+		// Draw all the pipes
+		for (pipe : pipes) {
+			pipe.draw()
+		}
+	}
+
+	def update() {
+
+	}
+}

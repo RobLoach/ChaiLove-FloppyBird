@@ -13,6 +13,8 @@ global landTop = 0
 global landX = 0.0f
 global skyX = 0.0f
 global highscore = 0
+global currentState = "menu"
+global states
 
 def conf(t) {
 	t.window.title = "Floppy Bird";
@@ -31,6 +33,16 @@ def load() {
 	assets.get("music").play()
 	bird = Bird(assets)
 	landTop = graphics.getHeight() - assets.get("land").getHeight()
+
+	filesystem.load("MainMenuState.chai")
+	
+	var mainMenu = MainMenuState()
+	var game = GameState()
+	states = [
+		"menu": mainMenu,
+		"game": game
+	]
+	print("HOIIHIHI")
 
 	reset()
 }
@@ -71,23 +83,11 @@ def draw() {
 	for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
 		graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
 	}
-
-	// Draw the Bird
-	bird.draw()
-
-	// Draw all the pipes
-	for (pipe : pipes) {
-		pipe.draw()
-	}
-
-	// Print the score.
-	graphics.setFont(assets.get("font-big"))
-	graphics.print(to_string(score), graphics.getWidth() / 2 - 30, 30)
+	states[currentState].draw()
 
 	// FPS
 	graphics.setFont(assets.get("font-pixel"))
 	graphics.print("FPS " + to_string(timer.getFPS()), 10, graphics.getHeight() - 20)
-
 
 	// Highscore
 	graphics.print("BEST " + to_string(highscore), graphics.getWidth() - 150, graphics.getHeight() - 20)
@@ -151,6 +151,10 @@ def joystickpressed(joy, button) {
 	if (flapTimer > flapTimerMax) {
 		bird.flap(false)
 		flapTimer = 0.0f
+	}
+
+	if (currentState == "menu") {
+		currentState = "game"
 	}
 }
 
