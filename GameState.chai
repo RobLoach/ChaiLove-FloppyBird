@@ -1,15 +1,9 @@
 class GameState {
-
 	def GameState() {
 		// Nothing.
 	}
 
-	def draw() {
-		// Nothing.
-	}
-
 	def update(delta) {
-
 		// Update the bird position, resetting if needed.
 		if (bird.update(delta) == false) {
 			currentState = "menu"

@@ -1,23 +1,25 @@
 class MainMenuState {
 	var title
 	var titlefont
+	var font
 
 	def MainMenuState() {
 		// TODO Fix the font
 		this.title = "FLOPPZ BIRD"
 		this.description = "PRESS ANZ BUTTON"
+		this.font := assets.get("font-pixel")
 	}
 
 	def draw() {
 		// Print the Title.
-		graphics.setFont(assets.get("font-pixel"))
-		var textwidth = assets.get("font-pixel").getWidth(this.title)
-		var textheight = assets.get("font-pixel").getHeight()
+		graphics.setFont(this.font)
+		var textwidth = this.font.getWidth(this.title)
+		var textheight = this.font.getHeight()
 		graphics.print(this.title, graphics.getWidth() / 2 - textwidth / 2, graphics.getHeight() / 4)
 	
 		// Help text
-		textwidth = assets.get("font-pixel").getWidth(this.description)
-		textheight = assets.get("font-pixel").getHeight()
+		textwidth = this.font.getWidth(this.description)
+		textheight = this.font.getHeight()
 		graphics.print(this.description, graphics.getWidth() / 2 - textwidth / 2, graphics.getHeight() / 4 + textheight * 5)
 	}
 
