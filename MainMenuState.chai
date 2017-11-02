@@ -3,6 +3,7 @@ class MainMenuState {
 	var titlefont
 	var font
 	var deltaCounter
+	var logo
 
 	def MainMenuState() {
 		// TODO Fix the font
@@ -10,9 +11,14 @@ class MainMenuState {
 		this.description = "PRESS ANZ BUTTON"
 		this.font := assets.get("font-pixel")
 		this.deltaCounter = 0.0f
+		this.logo := assets.get("logo")
 	}
 
 	def draw() {
+		//var ypos = 10.0f
+		//ypos = graphics.getHeight() / 4 + 20 * sin(this.deltaCounter * 2)
+		//graphics.draw(this.img, 10.0f, ypos)
+	
 		// Print the Title.
 		graphics.setFont(this.font)
 		var textwidth = this.font.getWidth(this.title)
