@@ -1,17 +1,17 @@
 class MainMenuState {
-	var title
 	var titlefont
 	var font
 	var deltaCounter
 	var logo
+	var textwidth
 
 	def MainMenuState() {
 		// TODO Fix the font
-		this.title = "FLOPPZ BIRD"
 		this.description = "PRESS ANZ BUTTON"
 		this.font := assets.get("font-pixel")
 		this.deltaCounter = 0.0f
 		this.logo := assets.get("logo")
+		this.textwidth = this.font.getWidth(this.description)
 	}
 
 	def draw() {
@@ -19,16 +19,11 @@ class MainMenuState {
 		var ypos = graphics.getHeight() / 4 + 20 * sin(this.deltaCounter * 2)
 		graphics.draw(this.logo, graphics.getWidth() / 2 - this.logo.getWidth() / 2, ypos)
 	
-		// Print the Title.
+		// Press Any Button
 		graphics.setFont(this.font)
-		var textwidth = this.font.getWidth(this.title)
 		var textheight = this.font.getHeight()
-	
-		// Help text
 		ypos = graphics.getHeight() / 4 + textheight * 10 + 5 * sin(this.deltaCounter * 2)
-		textwidth = this.font.getWidth(this.description)
-		textheight = this.font.getHeight()
-		graphics.print(this.description, graphics.getWidth() / 2 - textwidth / 2, ypos)
+		graphics.print(this.description, graphics.getWidth() / 2 - this.textwidth / 2, ypos)
 	}
 
 	def update(delta) {
@@ -36,6 +31,7 @@ class MainMenuState {
 	}
 
 	def joystickpressed() {
+		// When a button is pressed, switch to the game, and restart the entities.
 		currentState = "game"
 		reset()
 	}
