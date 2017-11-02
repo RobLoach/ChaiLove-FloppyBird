@@ -15,19 +15,17 @@ class MainMenuState {
 	}
 
 	def draw() {
-		//var ypos = 10.0f
-		//ypos = graphics.getHeight() / 4 + 20 * sin(this.deltaCounter * 2)
-		//graphics.draw(this.img, 10.0f, ypos)
+		// Logo
+		var ypos = graphics.getHeight() / 4 + 20 * sin(this.deltaCounter * 2)
+		graphics.draw(this.logo, graphics.getWidth() / 2 - this.logo.getWidth() / 2, ypos)
 	
 		// Print the Title.
 		graphics.setFont(this.font)
 		var textwidth = this.font.getWidth(this.title)
 		var textheight = this.font.getHeight()
-		var ypos = graphics.getHeight() / 4 + 20 * sin(this.deltaCounter * 2)
-		graphics.print(this.title, graphics.getWidth() / 2 - textwidth / 2, ypos)
 	
 		// Help text
-		ypos = graphics.getHeight() / 4 + textheight * 5 + 5 * sin(this.deltaCounter * 2)
+		ypos = graphics.getHeight() / 4 + textheight * 10 + 5 * sin(this.deltaCounter * 2)
 		textwidth = this.font.getWidth(this.description)
 		textheight = this.font.getHeight()
 		graphics.print(this.description, graphics.getWidth() / 2 - textwidth / 2, ypos)
