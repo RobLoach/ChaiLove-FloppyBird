@@ -4,25 +4,32 @@ class MainMenuState {
 	var deltaCounter
 	var logo
 	var textwidth
+	var textheight
 
 	def MainMenuState() {
 		// TODO Fix the font
 		this.description = "PRESS ANZ BUTTON"
+		this.credits = "BZ ROB LOACH"
 		this.font := assets.get("font-pixel")
 		this.deltaCounter = 0.0f
 		this.logo := assets.get("logo")
+		this.textheight = this.font.getHeight()
 		this.textwidth = this.font.getWidth(this.description)
+		this.creditswidth = this.font.getWidth(this.credits)
 	}
 
 	def draw() {
 		// Logo
-		var ypos = graphics.getHeight() / 4 + 20 * sin(this.deltaCounter * 2)
+		var ypos = graphics.getHeight() / 5 + 20 * sin(this.deltaCounter * 2)
 		graphics.draw(this.logo, graphics.getWidth() / 2 - this.logo.getWidth() / 2, ypos)
 	
 		// Press Any Button
 		graphics.setFont(this.font)
-		var textheight = this.font.getHeight()
-		ypos = graphics.getHeight() / 4 + textheight * 10 + 5 * sin(this.deltaCounter * 2)
+		ypos = graphics.getHeight() / 5 + this.textheight * 7 + 10 * sin(this.deltaCounter * 2)
+		graphics.print(this.credits, graphics.getWidth() / 2 - this.creditswidth / 2, ypos)
+
+		// Credit
+		ypos = graphics.getHeight() / 5 + this.textheight * 12 + 5 * sin(this.deltaCounter * 2)
 		graphics.print(this.description, graphics.getWidth() / 2 - this.textwidth / 2, ypos)
 	}
 

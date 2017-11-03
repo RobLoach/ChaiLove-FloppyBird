@@ -5,7 +5,6 @@ class Pipe {
 	var width
 	var height
 	var img
-	var pipeImage
 	var top
 	var openingHeight
 
@@ -18,81 +17,44 @@ class Pipe {
 		this.sourcequad = Quad()
 
 		if (top) {
-			this.y = opening - this.openingHeight
-			this.img := assets.get("pipe-down")
+			this.y = 0
+			this.height = opening - this.openingHeight
+			this.img := assets.get("pipe-top")
+			this.width = this.img.getWidth()
+			this.sourcequad.x = 0
+			this.sourcequad.y = this.img.getHeight() - this.height
+			this.sourcequad.width = this.img.getWidth()
+			this.sourcequad.height = this.height
 		}
 		else {
 			this.y = opening + this.openingHeight
-			this.img := assets.get("pipe-up")
+			this.height = landTop - this.y
+			this.img := assets.get("pipe-bottom")
+			this.width = this.img.getWidth()
+			this.sourcequad.x = 0
+			this.sourcequad.y = 0
+			this.sourcequad.width = this.img.getWidth()
+			this.sourcequad.height = this.height
 		}
-		this.width = this.img.getWidth()
-		this.pipeImage := assets.get("pipe")
 	}
 
 	def draw() {
-		graphics.draw(this.img, this.x, this.y)
-		if (config.options["highquality"]) {
-			if (this.top) {
-				for (var i = 0; i < this.y; ++i) {
-					graphics.draw(this.pipeImage, this.x, i)
-				}
-			}
-			else {
-				for (var j = this.y + this.img.getHeight(); j < landTop; ++j) {
-					graphics.draw(this.pipeImage, this.x, j)
-				}
-			}
-			return
-		}
-
-		if (this.top) {
-			var topPipe = 0
-			graphics.setColor(84, 56, 71)
-			graphics.line(this.x + 2, topPipe, this.x + 2, this.y)
-			graphics.line(this.x + 3, topPipe, this.x + 3, this.y)
-			graphics.line(this.x + this.pipeImage.getWidth() - 3, topPipe, this.x + this.pipeImage.getWidth() - 3, this.y)
-			graphics.line(this.x + this.pipeImage.getWidth() - 4, topPipe, this.x + this.pipeImage.getWidth() - 4, this.y)
-			graphics.setColor(85, 128, 34)
-			graphics.rectangle("fill", this.x + 4, topPipe, this.pipeImage.getWidth() - 9, this.y - topPipe)
-		}
-		else {
-			var bottomPipeTop = this.y + this.img.getHeight()
-			var bottomPipeBottom = graphics.getHeight() - assets.get("land").getHeight()
-			graphics.setColor(84, 56, 71)
-			graphics.line(this.x + 2, bottomPipeTop, this.x + 2, bottomPipeBottom)
-			graphics.line(this.x + 3, bottomPipeTop, this.x + 3, bottomPipeBottom)
-			graphics.line(this.x + this.pipeImage.getWidth() - 3, bottomPipeTop, this.x + this.pipeImage.getWidth() - 3, bottomPipeBottom)
-			graphics.line(this.x + this.pipeImage.getWidth() - 4, bottomPipeTop, this.x + this.pipeImage.getWidth() - 4, bottomPipeBottom)
-			graphics.setColor(85, 128, 34)
-			graphics.rectangle("fill", this.x + 4, bottomPipeTop, this.pipeImage.getWidth() - 9, bottomPipeBottom - bottomPipeTop - 1)
-		}
+		graphics.draw(this.img, this.sourcequad, this.x, this.y)
 	}
 
 	def update(delta, speed) {
 		this.x -= delta * speed
-		if (this.x + this.img.getWidth() < 0) {
+		if (this.x + this.width < 0) {
 			return false
 		}
 		return true
 	}
 
 	def collide(bird) {
-		var x = this.x
-		var y = 0
-		var height = 0
-
-		if (this.top) {
-			y = 0
-			height = this.y + this.img.getHeight()
-		}
-		else {
-			y = this.y
-			height = graphics.getHeight() - this.y
-		}
-		if (x < bird.x + bird.width) {
-			if (x + this.width > bird.x) {
-				if (y < bird.y + bird.height) {
-					if (y + height > bird.y) {
+		if (this.x < bird.x + bird.width) {
+			if (this.x + this.width > bird.x) {
+				if (this.y < bird.y + bird.height) {
+					if (this.y + this.height > bird.y) {
 						return true
 					}
 				}

@@ -4,9 +4,10 @@ global pipes = []
 global pipetimer = 0.0f
 global pipetimerCountdown = 1.4f
 global score = 0
-global openingSizeStart = 75.0f
-global openingSize = 75.0f
-global openingSizeRange = 10.0f
+global openingSizeStart = 60.0f
+global openingSize = openingSizeStart
+global openingSizeRangeStart = 10.0f
+global openingSizeRange = openingSizeRangeStart
 global flapTimer = 0.0f
 global flapTimerMax = 0.10f
 global landTop = 0
@@ -62,11 +63,10 @@ def reset() {
 	addPipe()
 	bird.reset()
 	score = 0
-	openingSize = 75.0f
-	openingSizeRange = 10.0f
+	openingSize = openingSizeStart
+	openingSizeRange = openingSizeRangeStart
 	pipetimer = 0.0f
 	flapTimer = 0.0f
-	openingSize = 70.0f
 	landX = 0.0f
 }
 
@@ -75,8 +75,8 @@ def reset() {
  */
 def addPipe() {
 	// Find out where the pipes should be positioned.
-	var pipeImage := assets.get("pipe-up")
-	var opening = math.random(0 + pipeImage.getHeight() + openingSize, landTop - pipeImage.getHeight() - openingSize)
+	var pipeTubeSize = 26
+	var opening = math.random(pipeTubeSize + openingSize, landTop - pipeTubeSize - openingSize)
 	var openSize = openingSize + math.random(-openingSizeRange, openingSizeRange)
 
 	// Add the pipes to the game.

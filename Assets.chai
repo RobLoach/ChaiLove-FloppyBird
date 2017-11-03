@@ -3,9 +3,8 @@ class Assets {
 
 	def Assets() {
 		this.assets = [
-			"pipe-up": graphics.newImage("assets/pipe-up.png"),
-			"pipe-down": graphics.newImage("assets/pipe-down.png"),
-			"pipe": graphics.newImage("assets/pipe.png"),
+			"pipe-top": graphics.newImage("assets/pipe-top.png"),
+			"pipe-bottom": graphics.newImage("assets/pipe-bottom.png"),
 			"bird": graphics.newImage("assets/bird.png"),
 			"land": graphics.newImage("assets/land.png"),
 			"sky": graphics.newImage("assets/sky.png"),
