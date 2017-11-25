@@ -80,8 +80,8 @@ def addPipe() {
 	var openSize = openingSize + math.random(-openingSizeRange, openingSizeRange)
 
 	// Add the pipes to the game.
-	pipes.push_back(Pipe(assets, opening, true, openSize))
-	pipes.push_back(Pipe(assets, opening, false, openSize))
+	pipes.push_back(Pipe(opening, true, openSize))
+	pipes.push_back(Pipe(opening, false, openSize))
 }
 
 /**
@@ -165,7 +165,23 @@ def addScore() {
  * Callback; Save the current state as a JSON string.
  */
 def savestate() {
-	var info = ["highscore": highscore]
+	var pipeInfo = []
+	for (pipe : pipes) {
+		pipeInfo.push_back(pipe.serialize())
+	}
+	var info = [
+		"score": score,
+		"highscore": highscore,
+		"bird": bird.serialize(),
+		"currentState": currentState,
+		"pipes": pipeInfo,
+		"openingSize": openingSize,
+		"openingSizeRange": openingSizeRange,
+		"pipetimer": pipetimer,
+		"flapTimer": flapTimer,
+		"landX": landX,
+		"skyX": skyX
+	]
 	return to_json(info)
 }
 
@@ -175,7 +191,19 @@ def savestate() {
 def loadstate(data) {
 	var info = from_json(data)
 	highscore = info["highscore"]
-	reset()
-	currentState = "menu"
+	bird.deserialize(info["bird"])
+	currentState = info["currentState"]
+	score = info["score"]
+	pipes.clear()
+	for (pipe : info["pipes"]) {
+		pipes.push_back(Pipe(100, pipe["top"], 100).deserialize(pipe))
+	}
+	openingSize = info["openingSize"]
+	openingSizeRange = info["openingSizeRange"]
+	pipetimer = info["pipetimer"]
+	flapTimer = info["flapTimer"]
+	landX = info["landX"]
+	skyX = info["skyX"]
+
 	return true
 }

@@ -7,9 +7,50 @@ class Pipe {
 	var img
 	var top
 	var openingHeight
+	var opening
+	var sourcequad
 
-	def Pipe(assets, opening, top, openingHeight) {
+	def serialize() {
+		return [
+			"opening": this.opening,
+			"x": this.x,
+			"y": this.y,
+			"scored": this.scored,
+			"width": this.width,
+			"height": this.height,
+			"top": this.top,
+			"openingHeight": this.openingHeight,
+			"quadx": this.sourcequad.x,
+			"quady": this.sourcequad.y,
+			"quadwidth": this.sourcequad.width,
+			"quadheight": this.sourcequad.height
+		]
+	}
+	def deserialize(obj) {
+		this.x = obj["x"]
+		this.y = obj["y"]
+		this.opening = obj["opening"]
+		this.scored = obj["scored"]
+		this.width = obj["width"]
+		this.height = obj["height"]
+		this.top = obj["top"]
+		this.openingHeight = obj["openingHeight"]
+		this.sourcequad.x = obj["quadx"]
+		this.sourcequad.y = obj["quady"]
+		this.sourcequad.width = obj["quadwidth"]
+		this.sourcequad.height = obj["quadheight"]
+		if (this.top) {
+			this.img := assets.get("pipe-top")
+		}
+		else {
+			this.img := assets.get("pipe-bottom")
+		}
+		return this
+	}
+
+	def Pipe(opening, top, openingHeight) {
 		this.scored = false
+		this.opening = opening
 		this.openingHeight = openingHeight
 		// Make sure the position is of floating point.
 		this.x = graphics.getWidth() * 1.0f

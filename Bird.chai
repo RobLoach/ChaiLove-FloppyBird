@@ -11,6 +11,22 @@ class Bird {
 	var animationslide
 	var flapSound
 
+	def serialize() {
+		return [
+			"x": this.x,
+			"y": this.y,
+			"yspeed": this.yspeed,
+			"speed": this.speed
+		]
+	}
+
+	def deserialize(obj) {
+		this.x = obj["x"]
+		this.y = obj["y"]
+		this.yspeed = obj["yspeed"]
+		this.speed = obj["speed"]
+	}
+
 	def Bird(assets) {
 		this.x = 80.0f
 		this.speed = 150.0f
