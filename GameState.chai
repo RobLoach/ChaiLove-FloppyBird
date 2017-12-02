@@ -7,7 +7,7 @@ class GameState {
 		// Update the bird position, resetting if needed.
 		if (bird.update(delta) == false) {
 			currentState = "menu"
-			assets.get("music").stop()
+			assets["music"].stop()
 			return
 		}
 
@@ -16,8 +16,8 @@ class GameState {
 		for (var i = 0; i < pipes.size(); ++i) {
 			// Check collisions with any pipes.
 			if (pipes[i].collide(bird)) {
-				assets.get("hit").play()
-				assets.get("music").stop()
+				assets["hit"].play()
+				assets["music"].stop()
 				currentState = "menu"
 				return
 			}
@@ -47,12 +47,12 @@ class GameState {
 		}
 
 		landX += bird.speed * delta
-		if (landX >= assets.get("land").getWidth()) {
+		if (landX >= assets["land"].getWidth()) {
 			landX = 0.0f
 		}
 
 		skyX += bird.speed / 2 * delta
-		if (skyX >= assets.get("sky").getWidth()) {
+		if (skyX >= assets["sky"].getWidth()) {
 			skyX = 0.0f
 		}
 

@@ -10,9 +10,9 @@ class MainMenuState {
 		// TODO Fix the font
 		this.description = "PRESS ANZ BUTTON"
 		this.credits = "BZ ROB LOACH"
-		this.font := assets.get("font-pixel")
+		this.font := assets["font-pixel"]
 		this.deltaCounter = 0.0f
-		this.logo := assets.get("logo")
+		this.logo := assets["logo"]
 		this.textheight = this.font.getHeight()
 		this.textwidth = this.font.getWidth(this.description)
 		this.creditswidth = this.font.getWidth(this.credits)
@@ -40,7 +40,7 @@ class MainMenuState {
 	def joystickpressed() {
 		// When a button is pressed, switch to the game, and restart the entities.
 		currentState = "game"
-		assets.get("music").play()
+		assets["music"].play()
 		reset()
 	}
 }

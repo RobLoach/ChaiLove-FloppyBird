@@ -40,10 +40,10 @@ class Pipe {
 		this.sourcequad.width = obj["quadwidth"]
 		this.sourcequad.height = obj["quadheight"]
 		if (this.top) {
-			this.img := assets.get("pipe-top")
+			this.img := assets["pipe-top"]
 		}
 		else {
-			this.img := assets.get("pipe-bottom")
+			this.img := assets["pipe-bottom"]
 		}
 		return this
 	}
@@ -60,7 +60,7 @@ class Pipe {
 		if (top) {
 			this.y = 0
 			this.height = opening - this.openingHeight
-			this.img := assets.get("pipe-top")
+			this.img := assets["pipe-top"]
 			this.width = this.img.getWidth()
 			this.sourcequad.x = 0
 			this.sourcequad.y = this.img.getHeight() - this.height
@@ -70,7 +70,7 @@ class Pipe {
 		else {
 			this.y = opening + this.openingHeight
 			this.height = landTop - this.y
-			this.img := assets.get("pipe-bottom")
+			this.img := assets["pipe-bottom"]
 			this.width = this.img.getWidth()
 			this.sourcequad.x = 0
 			this.sourcequad.y = 0

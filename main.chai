@@ -34,14 +34,13 @@ def load() {
 	graphics.setBackgroundColor(78, 192, 202)
 
 	// Load all asset files.
-	filesystem.load("Assets.chai")
+	filesystem.load("assets.chai")
 	filesystem.load("Bird.chai")
 	filesystem.load("Pipe.chai")
 
 	// Construct the assets.
-	assets = Assets()
-	bird = Bird(assets)
-	landTop = graphics.getHeight() - assets.get("land").getHeight()
+	bird = Bird()
+	landTop = graphics.getHeight() - assets["land"].getHeight()
 
 	// Set up the Game States
 	filesystem.load("MainMenuState.chai")
@@ -89,12 +88,12 @@ def addPipe() {
  */
 def draw() {
 	// Draw the background (land and sky).
-	var land := assets.get("land")
+	var land := assets["land"]
 	for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
 		graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
 	}
 	if (config.options["highquality"]) {
-		var sky := assets.get("sky")
+		var sky := assets["sky"]
 		for (var i = 0; (i - 1) * sky.getWidth() <= graphics.getWidth(); ++i) {
 			graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
 		}
@@ -113,14 +112,14 @@ def draw() {
 
 	// Print the score.
 	if (score > 0) {
-		graphics.setFont(assets.get("font-big"))
+		graphics.setFont(assets["font-big"])
 		var scoretext = to_string(score)
-		var scorewidth = assets.get("font-big").getWidth(scoretext)
+		var scorewidth = assets["font-big"].getWidth(scoretext)
 		graphics.print(to_string(score), graphics.getWidth() / 2 - scorewidth / 2, 30)
 	}
 
 	// FPS
-	graphics.setFont(assets.get("font-pixel"))
+	graphics.setFont(assets["font-pixel"])
 	graphics.print("FPS " + to_string(timer.getFPS()), 10, graphics.getHeight() - 20)
 
 	// Highscore
@@ -153,7 +152,7 @@ def mousepressed(x, y, button) {
  */
 def addScore() {
 	score += 1
-	assets.get("point").play()
+	assets["point"].play()
 
 	// Update the highscore.
 	if (score > highscore) {

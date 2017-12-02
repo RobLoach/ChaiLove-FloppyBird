@@ -27,7 +27,7 @@ class Bird {
 		this.speed = obj["speed"]
 	}
 
-	def Bird(assets) {
+	def Bird() {
 		this.x = 80.0f
 		this.speed = 150.0f
 		this.y = 100.0f
@@ -37,7 +37,7 @@ class Bird {
 		this.animationslide = 2
 		this.animtimer = 0.0f
 
-		this.img := assets.get("bird")
+		this.img := assets["bird"]
 		this.sourcequad.width = this.img.getWidth()
 		this.sourcequad.height = this.img.getHeight() / 4
 		this.sourcequad.x = 0
@@ -45,7 +45,7 @@ class Bird {
 		this.width = this.img.getWidth()
 		this.height = this.img.getHeight() / 4
 
-		this.flapSound := assets.get("wing")
+		this.flapSound := assets["wing"]
 	}
 
 	def draw() {
@@ -67,7 +67,7 @@ class Bird {
 		this.y += this.yspeed * delta
 
 		if (this.y + this.height > landTop) {
-			assets.get("die").play()
+			assets["die"].play()
 			return false
 		}
 
