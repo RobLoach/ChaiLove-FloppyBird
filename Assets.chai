@@ -21,7 +21,6 @@ class Assets {
 
 		// Set up the music.
 		this.assets["music"].setLooping(true)
-		this.assets["music"].play()
 	}
 
 	def get(name) {
