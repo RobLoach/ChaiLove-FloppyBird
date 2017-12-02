@@ -192,6 +192,12 @@ def loadstate(data) {
 	highscore = info["highscore"]
 	bird.deserialize(info["bird"])
 	currentState = info["currentState"]
+	if (currentState == "game") {
+		assets["music"].play()
+	}
+	else {
+		assets["music"].stop()
+	}
 	score = info["score"]
 	pipes.clear()
 	for (pipe : info["pipes"]) {

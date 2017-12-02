@@ -39,12 +39,7 @@ class Pipe {
 		this.sourcequad.y = obj["quady"]
 		this.sourcequad.width = obj["quadwidth"]
 		this.sourcequad.height = obj["quadheight"]
-		if (this.top) {
-			this.img := assets["pipe-top"]
-		}
-		else {
-			this.img := assets["pipe-bottom"]
-		}
+		this.img := this.top ? assets["pipe-top"] : assets["pipe-bottom"]
 		return this
 	}
 
