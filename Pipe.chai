@@ -64,7 +64,7 @@ class Pipe {
 		}
 		else {
 			this.y = opening + this.openingHeight
-			this.height = landTop - this.y
+			this.height = landTop - this.y + 1
 			this.img := assets["pipe-bottom"]
 			this.width = this.img.getWidth()
 			this.sourcequad.x = 0

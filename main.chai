@@ -158,6 +158,22 @@ def addScore() {
 	if (score > highscore) {
 		highscore = score
 	}
+
+	if (score == 10) {
+		stopMusic()
+		assets["music2"].play()
+	}
+
+	if (score == 20) {
+		stopMusic()
+		assets["music3"].play()
+	}
+}
+
+def stopMusic() {
+	assets["music1"].stop()
+	assets["music2"].stop()
+	assets["music3"].stop()
 }
 
 /**
