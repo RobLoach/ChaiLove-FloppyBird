@@ -7,9 +7,11 @@ class Bird {
 	var speed
 	var ygravity
 	var img
-	var sourcequad
 	var animationslide
 	var flapSound
+	var ox
+	var oy
+	var collisionPadding
 
 	def serialize() {
 		return [
@@ -28,29 +30,52 @@ class Bird {
 	}
 
 	def Bird() {
+		this.collisionPadding = 5
 		this.x = 80.0f
 		this.speed = 150.0f
 		this.y = 100.0f
 		this.yspeed = 0.0f
 		this.ygravity = 1000.0f
-		this.sourcequad = Quad()
 		this.animationslide = 2
 		this.animtimer = 0.0f
 
-		this.img := assets["bird"]
-		this.sourcequad.width = this.img.getWidth()
-		this.sourcequad.height = this.img.getHeight() / 4
-		this.sourcequad.x = 0
-		this.sourcequad.y = 0
-		this.width = this.img.getWidth()
-		this.height = this.img.getHeight() / 4
+		this.img = []
+		for (var i = 0; i <= 3; ++i) {
+			this.img.push_back(graphics.newImage("assets/bird" + to_string(i) + ".png"))
+		}
+		this.width = this.img[0].getWidth()
+		this.height = this.img[0].getHeight() / 4
 
 		this.flapSound := assets["wing"]
+
+		this.ox = this.img[0].getWidth() / 2.0f
+		this.oy = this.img[0].getWidth() / 2.0f
+	}
+
+	def left() {
+		return this.x - this.img[0].getWidth() / 2.0f
+	}
+
+	def right() {
+		return this.x + this.img[0].getWidth() / 2.0f
+	}
+
+	def top() {
+		return this.y - this.img[0].getHeight() / 2.0f
+	}
+
+	def bottom() {
+		return this.y + this.img[0].getHeight() / 2.0f
 	}
 
 	def draw() {
-		this.sourcequad.y = this.animationslide * this.img.getHeight() / 4
-		graphics.draw(this.img, this.sourcequad, this.x, this.y)
+		if (config.options["highquality"]) {
+			var angle = atan2(this.yspeed, this.speed) * -20
+			graphics.draw(this.img[this.animationslide], this.x, this.y, math.rad(angle), 1.0f, 1.0f, this.ox, this.oy)
+		}
+		else {
+			graphics.draw(this.img[this.animationslide], this.left(), this.top())
+		}
 	}
 
 	def update(delta) {
@@ -66,14 +91,14 @@ class Bird {
 		this.yspeed += this.ygravity * delta
 		this.y += this.yspeed * delta
 
-		if (this.y + this.height > landTop) {
+		if (this.bottom() - this.collisionPadding > landTop) {
 			assets["die"].play()
 			return false
 		}
 
-		if (this.yspeed < 0 && this.y < 0) {
+		if (this.yspeed < 0 && this.top() < 0) {
 			this.yspeed = 0
-			this.y = 0
+			this.y = this.collisionPadding
 		}
 
 		return true

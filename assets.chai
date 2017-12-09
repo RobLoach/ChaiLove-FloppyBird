@@ -1,7 +1,6 @@
 assets = [
 	"pipe-top": graphics.newImage("assets/pipe-top.png"),
 	"pipe-bottom": graphics.newImage("assets/pipe-bottom.png"),
-	"bird": graphics.newImage("assets/bird.png"),
 	"land": graphics.newImage("assets/land.png"),
 	"sky": graphics.newImage("assets/sky.png"),
 	"die": sound.newSoundData("assets/sounds/die.wav"),
