@@ -40,7 +40,7 @@ class MainMenuState {
 	def joystickpressed() {
 		// When a button is pressed, switch to the game, and restart the entities.
 		currentState = "game"
-		assets["music"].play()
+		assets["music1"].play()
 		reset()
 	}
 }

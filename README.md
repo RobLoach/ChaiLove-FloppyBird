@@ -23,3 +23,8 @@ Alternatively, it is possible to run it through the command line:
 ## Development
 
     retroarch -L chailove_libretro.so main.chai
+
+## Credits
+
+- [Rob Loach](http://robloach.net)
+- [Oddroom](https://opengameart.org/users/oddroom) for [Music Loop Variations](https://opengameart.org/content/music-loop-variations) under [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
