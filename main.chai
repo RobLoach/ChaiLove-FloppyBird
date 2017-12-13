@@ -31,7 +31,7 @@ def conf(t) {
  */
 def load() {
 	// Set up the background.
-	graphics.setBackgroundColor(78, 192, 202)
+	love.graphics.setBackgroundColor(78, 192, 202)
 
 	// Load all asset files.
 	filesystem.load("assets.chai")
@@ -40,7 +40,7 @@ def load() {
 
 	// Construct the assets.
 	bird = Bird()
-	landTop = graphics.getHeight() - assets["land"].getHeight()
+	landTop = love.graphics.getHeight() - assets["land"].getHeight()
 
 	// Set up the Game States
 	filesystem.load("MainMenuState.chai")
@@ -90,12 +90,12 @@ def draw() {
 	// Draw the background (land and sky).
 	var land := assets["land"]
 	for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
-		graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
+		love.graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
 	}
 	if (config.options["highquality"]) {
 		var sky := assets["sky"]
 		for (var i = 0; (i - 1) * sky.getWidth() <= graphics.getWidth(); ++i) {
-			graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
+			love.graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
 		}
 	}
 
@@ -112,18 +112,18 @@ def draw() {
 
 	// Print the score.
 	if (score > 0) {
-		graphics.setFont(assets["font-big"])
+		love.graphics.setFont(assets["font-big"])
 		var scoretext = to_string(score)
 		var scorewidth = assets["font-big"].getWidth(scoretext)
-		graphics.print(to_string(score), graphics.getWidth() / 2 - scorewidth / 2, 30)
+		love.graphics.print(to_string(score), graphics.getWidth() / 2 - scorewidth / 2, 30)
 	}
 
 	// FPS
-	graphics.setFont(assets["font-pixel"])
-	graphics.print("FPS " + to_string(timer.getFPS()), 10, graphics.getHeight() - 20)
+	love.graphics.setFont(assets["font-pixel"])
+	love.graphics.print("FPS " + to_string(timer.getFPS()), 10, graphics.getHeight() - 20)
 
 	// Highscore
-	graphics.print("BEST " + to_string(highscore), graphics.getWidth() - 150, graphics.getHeight() - 20)
+	love.graphics.print("BEST " + to_string(highscore), graphics.getWidth() - 150, graphics.getHeight() - 20)
 }
 
 /**
@@ -144,7 +144,7 @@ def joystickpressed(joy, button) {
  * Callback; Called when a mouse button is tapped.
  */
 def mousepressed(x, y, button) {
-	joystickpressed(0, 0)
+	joystickpressed(0, "a")
 }
 
 /**
@@ -209,10 +209,10 @@ def loadstate(data) {
 	bird.deserialize(info["bird"])
 	currentState = info["currentState"]
 	if (currentState == "game") {
-		assets["music"].play()
+		assets["music1"].play()
 	}
 	else {
-		assets["music"].stop()
+		stopMusic();
 	}
 	score = info["score"]
 	pipes.clear()

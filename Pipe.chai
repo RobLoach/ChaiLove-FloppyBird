@@ -48,7 +48,7 @@ class Pipe {
 		this.opening = opening
 		this.openingHeight = openingHeight
 		// Make sure the position is of floating point.
-		this.x = graphics.getWidth() * 1.0f
+		this.x = love.graphics.getWidth() * 1.0f
 		this.top = top
 		this.sourcequad = Quad()
 
@@ -75,7 +75,7 @@ class Pipe {
 	}
 
 	def draw() {
-		graphics.draw(this.img, this.sourcequad, this.x, this.y)
+		love.graphics.draw(this.img, this.sourcequad, this.x, this.y)
 	}
 
 	def update(delta, speed) {

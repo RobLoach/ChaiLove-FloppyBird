@@ -8,7 +8,6 @@ class Bird {
 	var ygravity
 	var img
 	var animationslide
-	var flapSound
 	var ox
 	var oy
 	var collisionPadding
@@ -41,12 +40,10 @@ class Bird {
 
 		this.img = []
 		for (var i = 0; i <= 3; ++i) {
-			this.img.push_back(graphics.newImage("assets/bird" + to_string(i) + ".png"))
+			this.img.push_back(love.graphics.newImage("assets/bird" + to_string(i) + ".png"))
 		}
 		this.width = this.img[0].getWidth()
 		this.height = this.img[0].getHeight() / 4
-
-		this.flapSound := assets["wing"]
 
 		this.ox = this.img[0].getWidth() / 2.0f
 		this.oy = this.img[0].getWidth() / 2.0f
@@ -71,10 +68,10 @@ class Bird {
 	def draw() {
 		if (config.options["highquality"]) {
 			var angle = atan2(this.yspeed, this.speed) * -20
-			graphics.draw(this.img[this.animationslide], this.x, this.y, math.rad(angle), 1.0f, 1.0f, this.ox, this.oy)
+			love.graphics.draw(this.img[this.animationslide], this.x, this.y, math.rad(angle), 1.0f, 1.0f, this.ox, this.oy)
 		}
 		else {
-			graphics.draw(this.img[this.animationslide], this.left(), this.top())
+			love.graphics.draw(this.img[this.animationslide], this.left(), this.top())
 		}
 	}
 
@@ -108,7 +105,7 @@ class Bird {
 		this.yspeed = -280.0f
 		this.animationslide = 0
 		if (mute == false) {
-			this.flapSound.play()
+			assets["wing"].play()
 		}
 	}
 

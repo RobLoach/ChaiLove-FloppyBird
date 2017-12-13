@@ -1,21 +1,24 @@
 assets = [
-	"pipe-top": graphics.newImage("assets/pipe-top.png"),
-	"pipe-bottom": graphics.newImage("assets/pipe-bottom.png"),
-	"land": graphics.newImage("assets/land.png"),
-	"sky": graphics.newImage("assets/sky.png"),
-	"die": sound.newSoundData("assets/sounds/die.wav"),
-	"hit": sound.newSoundData("assets/sounds/hit.wav"),
-	"point": sound.newSoundData("assets/sounds/point.wav"),
-	"swooshing": sound.newSoundData("assets/sounds/swooshing.wav"),
-	"wing": sound.newSoundData("assets/sounds/wing.wav"),
-	"music1": sound.newSoundData("assets/sounds/music1.wav"),
-	"music2": sound.newSoundData("assets/sounds/music2.wav"),
-	"music3": sound.newSoundData("assets/sounds/music3.wav"),
-	"font-big": graphics.newFont("assets/font_bignumbers.png", 24, 36, "0123456789"),
-	"font-pixel": graphics.newFont("assets/font_pixel-18x16.png", 18, 16, " !*+,-./0123\"456789:;<=#>?@ABCDEFG$HIJKLMNOPQ%RSTUWXYZ[&/\\]^_''(){|}~ "),
-	"logo": graphics.newImage("assets/logo.png")
+	"pipe-top": love.graphics.newImage("assets/pipe-top.png"),
+	"pipe-bottom": love.graphics.newImage("assets/pipe-bottom.png"),
+	"land": love.graphics.newImage("assets/land.png"),
+	"sky": love.graphics.newImage("assets/sky.png"),
+	"die": love.sound.newSoundData("assets/sounds/die.wav"),
+	"hit": love.sound.newSoundData("assets/sounds/hit.wav"),
+	"point": love.sound.newSoundData("assets/sounds/point.wav"),
+	"swooshing": love.sound.newSoundData("assets/sounds/swooshing.wav"),
+	"wing": love.sound.newSoundData("assets/sounds/wing.wav"),
+	"music1": love.sound.newSoundData("assets/sounds/music1.wav"),
+	"music2": love.sound.newSoundData("assets/sounds/music2.wav"),
+	"music3": love.sound.newSoundData("assets/sounds/music3.wav"),
+	"font-big": love.graphics.newFont("assets/font_bignumbers.png", 24, 36, "0123456789"),
+	"font-pixel": love.graphics.newFont("assets/font_pixel-18x16.png", 18, 16, " !*+,-./0123\"456789:;<=#>?@ABCDEFG$HIJKLMNOPQ%RSTUWXYZ[&/\\]^_''(){|}~ "),
+	"logo": love.graphics.newImage("assets/logo.png")
 ]
 
+// Adjust volumes for the audio.
+assets["point"].setVolume(0.3f)
+assets["wing"].setVolume(0.6f)
 for (var i = 1; i <= 3; ++i) {
 	assets["music" + to_string(i)].setLooping(true)
 	assets["music" + to_string(i)].setVolume(0.15f)
