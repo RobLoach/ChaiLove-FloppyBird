@@ -15,6 +15,8 @@ assets = [
 	"font-pixel": graphics.newFont("assets/font_pixel-18x16.png", 18, 16, " !*+,-./0123\"456789:;<=#>?@ABCDEFG$HIJKLMNOPQ%RSTUWXYZ[&/\\]^_''(){|}~ "),
 	"logo": graphics.newImage("assets/logo.png")
 ]
-assets["music1"].setLooping(true)
-assets["music2"].setLooping(true)
-assets["music3"].setLooping(true)
+
+for (var i = 1; i <= 3; ++i) {
+	assets["music" + to_string(i)].setLooping(true)
+	assets["music" + to_string(i)].setVolume(0.15f)
+}
