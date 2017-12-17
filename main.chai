@@ -33,6 +33,9 @@ def load() {
 	// Set up the background.
 	love.graphics.setBackgroundColor(78, 192, 202)
 
+	// Make filtering use the nearest.
+	love.graphics.setDefaultFilter("nearest")
+
 	// Load all asset files.
 	filesystem.load("assets.chai")
 	filesystem.load("Bird.chai")
