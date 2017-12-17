@@ -164,12 +164,12 @@ def addScore() {
 		highscore = score
 	}
 
-	if (score == 10) {
+	if (score == 13) {
 		stopMusic()
 		assets["music2"].play()
 	}
 
-	if (score == 20) {
+	if (score == 26) {
 		stopMusic()
 		assets["music3"].play()
 	}
