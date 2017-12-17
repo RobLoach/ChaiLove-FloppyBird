@@ -21,6 +21,8 @@ global states
  * Configuration for ChaiLove.
  */
 def conf(t) {
+	t.identity = "floppybird"
+	t.version = "0.12.0" // Version of ChaiLove
 	t.window.title = "Floppy Bird";
 	t.window.width = 480;
 	t.window.height = 480;
@@ -37,17 +39,17 @@ def load() {
 	love.graphics.setDefaultFilter("nearest")
 
 	// Load all asset files.
-	filesystem.load("assets.chai")
-	filesystem.load("Bird.chai")
-	filesystem.load("Pipe.chai")
+	love.filesystem.load("assets.chai")
+	love.filesystem.load("Bird.chai")
+	love.filesystem.load("Pipe.chai")
 
 	// Construct the assets.
 	bird = Bird()
 	landTop = love.graphics.getHeight() - assets["land"].getHeight()
 
 	// Set up the Game States
-	filesystem.load("MainMenuState.chai")
-	filesystem.load("GameState.chai")
+	love.filesystem.load("MainMenuState.chai")
+	love.filesystem.load("GameState.chai")
 	states = [
 		"menu": MainMenuState(),
 		"game": GameState()
