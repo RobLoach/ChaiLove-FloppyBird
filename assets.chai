@@ -17,9 +17,8 @@ assets = [
 ]
 
 // Adjust volumes for the audio.
-assets["point"].setVolume(0.3f)
-assets["wing"].setVolume(0.6f)
+assets["point"].setVolume(0.25f)
+assets["wing"].setVolume(0.4f)
 for (var i = 1; i <= 3; ++i) {
-	assets["music" + to_string(i)].setLooping(true)
 	assets["music" + to_string(i)].setVolume(0.15f)
 }

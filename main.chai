@@ -158,21 +158,23 @@ def mousepressed(x, y, button) {
 def addScore() {
 	score += 1
 	assets["point"].play()
-
 	// Update the highscore.
 	if (score > highscore) {
 		highscore = score
 	}
+}
 
-	if (score == 13) {
-		stopMusic()
-		assets["music2"].play()
+def isMusicPlaying() {
+	if (assets["music1"].isPlaying()) {
+		return true
 	}
-
-	if (score == 26) {
-		stopMusic()
-		assets["music3"].play()
+	if (assets["music2"].isPlaying()) {
+		return true
 	}
+	if (assets["music3"].isPlaying()) {
+		return true
+	}
+	return false
 }
 
 def stopMusic() {
@@ -213,12 +215,7 @@ def loadstate(data) {
 	highscore = info["highscore"]
 	bird.deserialize(info["bird"])
 	currentState = info["currentState"]
-	if (currentState == "game") {
-		assets["music1"].play()
-	}
-	else {
-		stopMusic();
-	}
+	stopMusic();
 	score = info["score"]
 	pipes.clear()
 	for (pipe : info["pipes"]) {

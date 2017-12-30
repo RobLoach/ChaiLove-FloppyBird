@@ -56,6 +56,18 @@ class GameState {
 			skyX = 0.0f
 		}
 
+		if (!isMusicPlaying()) {
+			if (score <= 10) {
+				assets["music1"].play()
+			}
+			else if (score <= 20) {
+				assets["music2"].play()
+			}
+			else {
+				assets["music3"].play()
+			}
+		}
+
 		flapTimer += delta
 	}
 
