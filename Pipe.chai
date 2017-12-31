@@ -83,6 +83,21 @@ class Pipe {
 		if (this.x + this.width < 0) {
 			return false
 		}
+
+		// Difficulty level
+		if (score >= 5) {
+			if (this.top) {
+				this.height += delta * score / 3.0f
+				this.sourcequad.height = this.height
+				this.sourcequad.y = this.img.getHeight() - this.height
+			}
+			else {
+				this.y -= delta * score / 3.0f
+				this.height = landTop - this.y + 1
+				this.sourcequad.height = this.height
+			}
+		}
+
 		return true
 	}
 
