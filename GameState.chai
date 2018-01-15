@@ -4,7 +4,7 @@ class GameState {
 	}
 
 	def enter() {
-		// Nothing.
+		assets["music1"].play()
 	}
 
 	def exit() {

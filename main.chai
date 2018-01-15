@@ -62,7 +62,7 @@ def load() {
 }
 
 /**
- * Bring all entites to ground zero.
+ * Callback; Reset all entities and content.
  */
 def reset() {
 	pipes.clear()
@@ -211,7 +211,6 @@ def loadstate(data) {
 	highscore = info["highscore"]
 	bird.deserialize(info["bird"])
 	states.set(info["currentState"])
-	stopMusic();
 	score = info["score"]
 	pipes.clear()
 	for (pipe : info["pipes"]) {

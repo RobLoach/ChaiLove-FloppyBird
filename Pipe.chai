@@ -85,7 +85,8 @@ class Pipe {
 		}
 
 		// Difficulty level
-		if (score >= 5) {
+		/*
+		if (score >= 10) {
 			if (this.top) {
 				this.height += delta * score / 3.0f
 				this.sourcequad.height = this.height
@@ -97,6 +98,7 @@ class Pipe {
 				this.sourcequad.height = this.height
 			}
 		}
+		*/
 
 		return true
 	}
