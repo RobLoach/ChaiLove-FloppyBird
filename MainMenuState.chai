@@ -18,6 +18,14 @@ class MainMenuState {
 		this.creditswidth = this.font.getWidth(this.credits)
 	}
 
+	def enter() {
+		// Nothing.
+	}
+
+	def exit() {
+		// Nothing.
+	}
+
 	def draw() {
 		// Logo
 		var ypos = love.graphics.getHeight() / 5 + 20 * sin(this.deltaCounter * 2)
@@ -37,9 +45,13 @@ class MainMenuState {
 		this.deltaCounter += delta
 	}
 
+	def load() {
+		// Nothing.
+	}
+
 	def joystickpressed() {
 		// When a button is pressed, switch to the game, and restart the entities.
-		currentState = "game"
+		states.set("game")
 		assets["music1"].play()
 		reset()
 	}

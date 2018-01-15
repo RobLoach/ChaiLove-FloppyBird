@@ -14,7 +14,6 @@ global landTop = 0
 global landX = 0.0f
 global skyX = 0.0f
 global highscore = 0
-global currentState = "menu"
 global states
 
 /**
@@ -32,6 +31,10 @@ def conf(t) {
  * Load all the game assets and files.
  */
 def load() {
+	// Set up the State Manager.
+	love.filesystem.load("lib/StateMachine.chai")
+	states = StateMachine()
+
 	// Set up the background.
 	love.graphics.setBackgroundColor(78, 192, 202)
 
@@ -50,10 +53,9 @@ def load() {
 	// Set up the Game States
 	love.filesystem.load("MainMenuState.chai")
 	love.filesystem.load("GameState.chai")
-	states = [
-		"menu": MainMenuState(),
-		"game": GameState()
-	]
+	states.add("menu", MainMenuState())
+	states.add("game", GameState())
+	states.set("menu")
 
 	// Bring all the game entities to ground zero.
 	reset()
@@ -113,7 +115,7 @@ def draw() {
 	}
 
 	// Draw the current game state.
-	states[currentState].draw()
+	states.draw()
 
 	// Print the score.
 	if (score > 0) {
@@ -135,14 +137,14 @@ def draw() {
  * Callback; Update the game.
  */
 def update(delta) {
-	states[currentState].update(delta)
+	states.update(delta)
 }
 
 /**
  * Callback; Called when a joystick button is hit.
  */
 def joystickpressed(joy, button) {
-	states[currentState].joystickpressed()
+	states.joystickpressed()
 }
 
 /**
@@ -195,7 +197,7 @@ def savestate() {
 		"score": score,
 		"highscore": highscore,
 		"bird": bird.serialize(),
-		"currentState": currentState,
+		"currentState": states.getCurrentName(),
 		"pipes": pipeInfo,
 		"openingSize": openingSize,
 		"openingSizeRange": openingSizeRange,
@@ -214,7 +216,7 @@ def loadstate(data) {
 	var info = from_json(data)
 	highscore = info["highscore"]
 	bird.deserialize(info["bird"])
-	currentState = info["currentState"]
+	states.set(info["currentState"])
 	stopMusic();
 	score = info["score"]
 	pipes.clear()

@@ -1,0 +1,74 @@
+class NullState {
+	def NullState() {
+		// Nothing.
+	}
+
+	def enter() {
+		// Nothing.
+	}
+
+	def exit() {
+		// Nothing.
+	}
+
+	def update(delta) {
+		// Nothing.
+	}
+
+	def load() {
+		// Nothing.
+	}
+
+	def draw() {
+		love.graphics.print("NullState", 0, 0)
+	}
+
+	def joystickpressed() {
+		// Nothing.
+	}
+}
+
+class StateMachine {
+	var states
+	var currentState
+
+	def StateMachine() {
+		this.states = [
+			"null": NullState()
+		]
+		this.currentState = "null"
+	}
+
+	def getCurrent() {
+		return this.states[this.currentState]
+	}
+	def getCurrentName() {
+		return this.currentState
+	}
+
+	def set(newState) {
+		this.states[this.currentState].exit()
+		this.currentState = newState
+		this.states[this.currentState].enter()
+	}
+
+	def add(name, newState) {
+		this.states[name] = newState
+	}
+
+	def update(delta) {
+		this.states[this.currentState].update(delta)
+	}
+
+	def load() {
+		this.states[this.currentState].load()
+	}
+
+	def draw() {
+		this.states[this.currentState].draw()
+	}
+
+	def joystickpressed() {
+		this.states[this.currentState].joystickpressed()
+	}
+}
