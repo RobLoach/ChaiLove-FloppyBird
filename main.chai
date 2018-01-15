@@ -179,12 +179,6 @@ def isMusicPlaying() {
 	return false
 }
 
-def stopMusic() {
-	assets["music1"].stop()
-	assets["music2"].stop()
-	assets["music3"].stop()
-}
-
 /**
  * Callback; Save the current state as a JSON string.
  */

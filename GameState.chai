@@ -15,7 +15,6 @@ class GameState {
 		// Update the bird position, resetting if needed.
 		if (bird.update(delta) == false) {
 			states.set("menu")
-			stopMusic()
 			return
 		}
 
@@ -25,7 +24,6 @@ class GameState {
 			// Check collisions with any pipes.
 			if (pipes[i].collide(bird)) {
 				assets["hit"].play()
-				stopMusic()
 				states.set("menu")
 				return
 			}

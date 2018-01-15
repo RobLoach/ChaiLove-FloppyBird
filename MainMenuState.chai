@@ -19,7 +19,7 @@ class MainMenuState {
 	}
 
 	def enter() {
-		// Nothing.
+		this.stopMusic()
 	}
 
 	def exit() {
@@ -54,5 +54,11 @@ class MainMenuState {
 		states.set("game")
 		assets["music1"].play()
 		reset()
+	}
+
+	def stopMusic() {
+		assets["music1"].stop()
+		assets["music2"].stop()
+		assets["music3"].stop()
 	}
 }
