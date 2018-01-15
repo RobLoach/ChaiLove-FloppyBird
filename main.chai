@@ -80,8 +80,8 @@ def reset() {
 def addPipe() {
 	// Find out where the pipes should be positioned.
 	var pipeTubeSize = 26
-	var opening = math.random(pipeTubeSize + openingSize, landTop - pipeTubeSize - openingSize)
-	var openSize = openingSize + math.random(-openingSizeRange, openingSizeRange)
+	var opening = love.math.random(pipeTubeSize + openingSize, landTop - pipeTubeSize - openingSize)
+	var openSize = openingSize + love.math.random(-openingSizeRange, openingSizeRange)
 
 	// Add the pipes to the game.
 	pipes.push_back(Pipe(opening, true, openSize))
@@ -94,12 +94,12 @@ def addPipe() {
 def draw() {
 	// Draw the background (land and sky).
 	var land := assets["land"]
-	for (var i = 0; (i - 1) * land.getWidth() <= graphics.getWidth(); ++i) {
-		love.graphics.draw(land, i * land.getWidth() - landX, graphics.getHeight() - land.getHeight())
+	for (var i = 0; (i - 1) * land.getWidth() <= love.graphics.getWidth(); ++i) {
+		love.graphics.draw(land, i * land.getWidth() - landX, love.graphics.getHeight() - land.getHeight())
 	}
-	if (config.options["highquality"]) {
+	if (love.config.options["highquality"]) {
 		var sky := assets["sky"]
-		for (var i = 0; (i - 1) * sky.getWidth() <= graphics.getWidth(); ++i) {
+		for (var i = 0; (i - 1) * sky.getWidth() <= love.graphics.getWidth(); ++i) {
 			love.graphics.draw(sky, i * sky.getWidth() - skyX, landTop - sky.getHeight())
 		}
 	}
@@ -120,15 +120,15 @@ def draw() {
 		love.graphics.setFont(assets["font-big"])
 		var scoretext = to_string(score)
 		var scorewidth = assets["font-big"].getWidth(scoretext)
-		love.graphics.print(to_string(score), graphics.getWidth() / 2 - scorewidth / 2, 30)
+		love.graphics.print(to_string(score), love.graphics.getWidth() / 2 - scorewidth / 2, 30)
 	}
 
 	// FPS
 	love.graphics.setFont(assets["font-pixel"])
-	love.graphics.print("FPS " + to_string(timer.getFPS()), 10, graphics.getHeight() - 20)
+	love.graphics.print("FPS " + to_string(love.timer.getFPS()), 10, love.graphics.getHeight() - 20)
 
 	// Highscore
-	love.graphics.print("BEST " + to_string(highscore), graphics.getWidth() - 150, graphics.getHeight() - 20)
+	love.graphics.print("BEST " + to_string(highscore), love.graphics.getWidth() - 150, love.graphics.getHeight() - 20)
 }
 
 /**

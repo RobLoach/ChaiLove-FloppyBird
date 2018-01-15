@@ -66,9 +66,9 @@ class Bird {
 	}
 
 	def draw() {
-		if (config.options["highquality"]) {
+		if (love.config.options["highquality"]) {
 			var angle = atan2(this.yspeed, this.speed) * -20
-			love.graphics.draw(this.img[this.animationslide], this.x, this.y, math.rad(angle), 1.0f, 1.0f, this.ox, this.oy)
+			love.graphics.draw(this.img[this.animationslide], this.x, this.y, love.math.rad(angle), 1.0f, 1.0f, this.ox, this.oy)
 		}
 		else {
 			love.graphics.draw(this.img[this.animationslide], this.left(), this.top())
@@ -110,7 +110,7 @@ class Bird {
 	}
 
 	def reset() {
-		this.y = graphics.getHeight() / 3
+		this.y = love.graphics.getHeight() / 3
 		this.flap(true)
 	}
 }
