@@ -222,6 +222,9 @@ def loadstate(data) {
 	flapTimer = info["flapTimer"]
 	landX = info["landX"]
 	skyX = info["skyX"]
+	assets["music1"].stop()
+	assets["music2"].stop()
+	assets["music3"].stop()
 
 	return true
 }

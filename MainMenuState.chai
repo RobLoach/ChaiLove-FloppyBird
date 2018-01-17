@@ -5,6 +5,7 @@ class MainMenuState {
 	var logo
 	var textwidth
 	var textheight
+	var pressAnyKeyTimer
 
 	def MainMenuState() {
 		// TODO Fix the font
@@ -20,6 +21,7 @@ class MainMenuState {
 
 	def enter() {
 		this.stopMusic()
+		this.pressAnyKeyTimer = 1.0f
 	}
 
 	def exit() {
@@ -31,18 +33,21 @@ class MainMenuState {
 		var ypos = love.graphics.getHeight() / 5 + 20 * sin(this.deltaCounter * 2)
 		love.graphics.draw(this.logo, love.graphics.getWidth() / 2 - this.logo.getWidth() / 2, ypos)
 	
-		// Press Any Button
+		// Credit
 		love.graphics.setFont(this.font)
 		ypos = love.graphics.getHeight() / 5 + this.textheight * 7 + 10 * sin(this.deltaCounter * 2)
 		love.graphics.print(this.credits, love.graphics.getWidth() / 2 - this.creditswidth / 2, ypos)
-
-		// Credit
-		ypos = love.graphics.getHeight() / 5 + this.textheight * 12 + 5 * sin(this.deltaCounter * 2)
-		love.graphics.print(this.description, love.graphics.getWidth() / 2 - this.textwidth / 2, ypos)
+		
+		if (this.pressAnyKeyTimer <= 0.0f) {
+			// Press Any Key
+			ypos = love.graphics.getHeight() / 5 + this.textheight * 12 + 5 * sin(this.deltaCounter * 2)
+			love.graphics.print(this.description, love.graphics.getWidth() / 2 - this.textwidth / 2, ypos)
+		}
 	}
 
 	def update(delta) {
 		this.deltaCounter += delta
+		this.pressAnyKeyTimer = this.pressAnyKeyTimer - delta
 	}
 
 	def load() {
@@ -50,9 +55,11 @@ class MainMenuState {
 	}
 
 	def joystickpressed() {
-		// When a button is pressed, switch to the game, and restart the entities.
-		states.set("game")
-		reset()
+		if (this.pressAnyKeyTimer <= 0.0f) {
+			// When a button is pressed, switch to the game, and restart the entities.
+			states.set("game")
+			reset()
+		}
 	}
 
 	def stopMusic() {

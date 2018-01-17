@@ -46,6 +46,10 @@ class StateMachine {
 		return this.currentState
 	}
 
+	def get(stateName) {
+		return this.state[stateName]
+	}
+
 	def set(newState) {
 		this.states[this.currentState].exit()
 		this.currentState = newState
