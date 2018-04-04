@@ -19,30 +19,31 @@ class GameState {
 		}
 
 		// Update all pipes.
-		var removePipe = -1
-		for (var i = 0; i < pipes.size(); ++i) {
+		var removePipe = 0
+		for (pipe : pipes) {
 			// Check collisions with any pipes.
-			if (pipes[i].collide(bird)) {
+			if (pipe.collide(bird)) {
 				assets["hit"].play()
 				states.set("menu")
 				return
 			}
 
 			// Update will return false if we are to remove it.
-			if (pipes[i].update(delta, bird.speed) == false) {
-				removePipe = i
+			if (pipe.update(delta, bird.speed) == false) {
+				removePipe = removePipe + 1
 			}
 
 			// Count the score.
-			if (bird.x > pipes[i].x + pipes[i].width / 2 && pipes[i].top && pipes[i].scored == false) {
+			if (bird.x > pipe.x + pipe.width / 2 && pipe.top && pipe.scored == false) {
 				addScore()
-				pipes[i].scored = true
+				pipe.scored = true
 			}
 		}
 
 		// See if we are removing an old pipe.
-		if (removePipe >= 0) {
-			pipes.erase_at(removePipe)
+		while (removePipe > 0) {
+			pipes.pop_front()
+			removePipe = removePipe - 1
 		}
 
 		// Add a new pipe if needed.
@@ -76,9 +77,11 @@ class GameState {
 
 		flapTimer += delta
 	}
+	
 	def load() {
 		// Nothing.
 	}
+
 	def draw() {
 		// Nothing.
 	}

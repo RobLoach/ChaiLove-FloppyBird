@@ -1,6 +1,6 @@
 global bird
 global assets
-global pipes = []
+global pipes = List()
 global pipetimer = 0.0f
 global pipetimerCountdown = 1.4f
 global score = 0
@@ -21,7 +21,7 @@ global states
  */
 def conf(t) {
 	t.identity = "floppybird"
-	t.version = "0.14.0" // Version of ChaiLove
+	t.version = "0.18.0" // Version of ChaiLove
 	t.window.title = "Floppy Bird";
 	t.window.width = 480;
 	t.window.height = 480;

@@ -26,6 +26,7 @@ class Pipe {
 			"quadheight": this.sourcequad.height
 		]
 	}
+	
 	def deserialize(obj) {
 		this.x = obj["x"]
 		this.y = obj["y"]
