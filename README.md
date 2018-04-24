@@ -2,7 +2,7 @@
 
 [Flappy Bird](https://en.wikipedia.org/wiki/Flappy_Bird) re-implementation using [ChaiLove](https://github.com/RobLoach/ChaiLove).
 
-![Floppy Bird Screenshot](screenshot.png)
+[![Floppy Bird Gameplay](screenshot.png)](https://www.youtube.com/watch?v=RLVwTh6qDFI&hd=1)
 
 ## Play
 
