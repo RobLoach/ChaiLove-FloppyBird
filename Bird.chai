@@ -77,11 +77,17 @@ class Bird {
 
 	def update(delta) {
 		this.animtimer += delta
+
 		if (this.animtimer > 0.12f) {
+
 			this.animtimer = 0
 			this.animationslide += 1
 			if (this.animationslide > 3) {
 				this.animationslide = 3
+
+				if (cheatFly) {
+					this.flap(false)
+				}
 			}
 		}
 

@@ -105,6 +105,10 @@ class Pipe {
 	}
 
 	def collide(bird) {
+		if (cheatNoClip) {
+			return false
+		}
+
 		if (this.x < bird.right() - bird.collisionPadding) {
 			if (this.x + this.width > bird.left() + bird.collisionPadding) {
 				if (this.y < bird.bottom() - bird.collisionPadding) {

@@ -15,13 +15,15 @@ global landX = 0.0f
 global skyX = 0.0f
 global highscore = 0
 global states
+global cheatNoClip = false
+global cheatFly = false
 
 /**
  * Configuration for ChaiLove.
  */
 def conf(t) {
 	t.identity = "floppybird"
-	t.version = "0.24.0" // Version of ChaiLove
+	t.version = "0.25.0" // Version of ChaiLove
 	t.window.title = "Floppy Bird";
 	t.window.width = 480;
 	t.window.height = 480;
@@ -227,4 +229,17 @@ def loadstate(data) {
 	assets["music3"].stop()
 
 	return true
+}
+
+def cheatreset() {
+	cheatNoClip = false
+}
+
+def cheatset(index, enabled, code) {
+	if (code == "noclip") {
+		cheatNoClip = enabled
+	}
+	if (code == "fly") {
+		cheatFly = enabled
+	}
 }
