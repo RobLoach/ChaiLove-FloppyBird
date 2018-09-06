@@ -233,6 +233,7 @@ def loadstate(data) {
 
 def cheatreset() {
 	cheatNoClip = false
+	cheatFly = false
 }
 
 def cheatset(index, enabled, code) {
