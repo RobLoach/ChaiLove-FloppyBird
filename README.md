@@ -21,7 +21,9 @@
 
 2. Alternatively, it is possible to run it through the command line:
 
+    ```
     retroarch -L chailove_libretro.so FloppyBird.chailove
+    ```
 
 ## Development
 
