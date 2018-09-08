@@ -8,7 +8,7 @@ class MainMenuState {
 	var pressAnyKeyTimer
 
 	def MainMenuState() {
-		// TODO Fix the font
+		// TODO(RobLoach): Fix the font
 		this.description = "PRESS ANZ BUTTON"
 		this.credits = "BZ ROB LOACH"
 		this.font := assets["font-pixel"]

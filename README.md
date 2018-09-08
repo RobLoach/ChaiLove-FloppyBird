@@ -4,19 +4,22 @@
 
 [![Floppy Bird Gameplay](screenshot.png)](https://www.youtube.com/watch?v=RLVwTh6qDFI&hd=1)
 
-## Play
+## Install
 
 1. Run [RetroArch](http://retroarch.com/)
 
-2. Install the [ChaiLove](https://github.com/robloach/chailove) core through RetroArch's Online Updater → Core Updater → ChaiLove
+2. Install the [ChaiLove](https://github.com/robloach/chailove) core through RetroArch
+    - *Online Updater* → *Core Updater* → *ChaiLove*
 
-3. Download the latest [ChaiLove Floppy Bird release](https://github.com/RobLoach/ChaiLove-FloppyBird/releases) at Online Updater → Content Downloader → ChaiLove → Floppy Bird.chailove
+3. Download the latest [ChaiLove Floppy Bird release](https://github.com/RobLoach/ChaiLove-FloppyBird/releases)
+    - *Online Updater* → *Content Downloader* → *ChaiLove* → *FloppyBird.chailove*
 
-4. Load `Floppy Bird.chailove` or `main.chai` through Load Content → Downloads
+## Play
 
-### Command Line
+1. Load `FloppyBird.chailove` through RetroArch...
+    - *Load Content* → *Downloads* → *FloppyBird.chailove*
 
-Alternatively, it is possible to run it through the command line:
+2. Alternatively, it is possible to run it through the command line:
 
     retroarch -L chailove_libretro.so FloppyBird.chailove
 
@@ -24,7 +27,10 @@ Alternatively, it is possible to run it through the command line:
 
     retroarch -L chailove_libretro.so main.chai
 
-## Credits
+## Attribution
+
+The ChaiLove source is under the [MIT license](LICENSE.md). Many of the assets included are [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). The authors of the works are listed below...
 
 - [Rob Loach](http://robloach.net)
-- [Oddroom](https://opengameart.org/users/oddroom) for [Music Loop Variations](https://opengameart.org/content/music-loop-variations) under [CC0](https://creativecommons.org/publicdomain/zero/1.0/)
+- [Music Loop Variations](https://opengameart.org/content/music-loop-variations) by [Oddroom](https://opengameart.org/users/oddroom)
+- [Boxy Bold font](https://opengameart.org/content/boxy-bold-font-split) by [Clint Bellanger](https://opengameart.org/users/clint-bellanger)

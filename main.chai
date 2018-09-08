@@ -231,11 +231,17 @@ def loadstate(data) {
 	return true
 }
 
+/**
+ * Callback; Reset the state of all the cheats.
+ */
 def cheatreset() {
 	cheatNoClip = false
 	cheatFly = false
 }
 
+/**
+ * Callback; Enable or disable a cheat code.
+ */
 def cheatset(index, enabled, code) {
 	if (code == "noclip") {
 		cheatNoClip = enabled
