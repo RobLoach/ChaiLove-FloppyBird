@@ -54,7 +54,7 @@ class MainMenuState {
 		// Nothing.
 	}
 
-	def joystickpressed() {
+	def joystickpressed(button) {
 		if (this.pressAnyKeyTimer <= 0.0f) {
 			// When a button is pressed, switch to the game, and restart the entities.
 			states.set("game")

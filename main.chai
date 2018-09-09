@@ -146,7 +146,7 @@ def update(delta) {
  * Callback; Called when a joystick button is hit.
  */
 def joystickpressed(joy, button) {
-	states.joystickpressed()
+	states.joystickpressed(button)
 }
 
 /**

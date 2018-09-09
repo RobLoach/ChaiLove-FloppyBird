@@ -1,6 +1,14 @@
 class GameState {
+	var pause
+	var pauseText
+	var pauseWidth
+	var pauseHeight
+
 	def GameState() {
-		// Nothing.
+		this.pause = false
+		this.pauseText = "PAUSE"
+		this.pauseWidth = assets["font-pixel"].getWidth(this.pauseText)
+		this.pauseHeight = assets["font-pixel"].getHeight(this.pauseText)
 	}
 
 	def enter() {
@@ -12,6 +20,11 @@ class GameState {
 	}
 
 	def update(delta) {
+		// Check if the game is paused.
+		if (this.pause) {
+			return
+		}
+
 		// Update the bird position, resetting if needed.
 		if (bird.update(delta) == false) {
 			states.set("menu")
@@ -83,13 +96,23 @@ class GameState {
 	}
 
 	def draw() {
-		// Nothing.
+		if (this.pause) {
+			love.graphics.print("PAUSE", love.graphics.getWidth() / 2 - this.pauseWidth / 2, love.graphics.getHeight() / 2 - this.pauseHeight)
+		}
 	}
 
-	def joystickpressed() {
-		if (flapTimer > flapTimerMax) {
-			bird.flap(false)
-			flapTimer = 0.0f
+	def joystickpressed(button) {
+		if (button == "start") {
+			this.pause = !this.pause
+			assets["point"].play()
+			return
+		}
+
+		if (!this.pause) {
+			if (flapTimer > flapTimerMax) {
+				bird.flap(false)
+				flapTimer = 0.0f
+			}
 		}
 	}
 }
