@@ -146,7 +146,7 @@ def update(delta) {
  * Callback; Called when a joystick button is hit.
  */
 def joystickpressed(joy, button) {
-	states.joystickpressed()
+	states.joystickpressed(button)
 }
 
 /**
@@ -209,6 +209,12 @@ def savestate() {
  * Callback; Load the state from the given JSON string.
  */
 def loadstate(data) {
+	// When loading, stop the music.
+	assets["music1"].stop()
+	assets["music2"].stop()
+	assets["music3"].stop()
+
+	// Retrieve the state data.
 	var info = from_json(data)
 	highscore = info["highscore"]
 	bird.deserialize(info["bird"])
@@ -224,9 +230,6 @@ def loadstate(data) {
 	flapTimer = info["flapTimer"]
 	landX = info["landX"]
 	skyX = info["skyX"]
-	assets["music1"].stop()
-	assets["music2"].stop()
-	assets["music3"].stop()
 
 	return true
 }
