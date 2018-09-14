@@ -5,7 +5,7 @@ assets = [
 	"sky": love.graphics.newImage("assets/sky.png"),
 	"die": love.sound.newSoundData("assets/sounds/die.ogg"),
 	"hit": love.sound.newSoundData("assets/sounds/hit.ogg"),
-	"point": love.sound.newSoundData("assets/sounds/point.ogg"),
+	"point": love.sound.newSoundData("assets/sounds/point.wav"),
 	"swooshing": love.sound.newSoundData("assets/sounds/swooshing.ogg"),
 	"wing": love.sound.newSoundData("assets/sounds/wing.ogg"),
 	"music1": love.sound.newSoundData("assets/sounds/music1.ogg"),
@@ -17,7 +17,6 @@ assets = [
 ]
 
 // Adjust volumes for the audio.
-assets["point"].setVolume(0.25f)
 assets["wing"].setVolume(0.4f)
 for (var i = 1; i <= 3; ++i) {
 	assets["music" + to_string(i)].setVolume(0.15f)
