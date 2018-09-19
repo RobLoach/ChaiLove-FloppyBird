@@ -20,7 +20,6 @@ class MainMenuState {
 	}
 
 	def enter() {
-		this.stopMusic()
 		this.pressAnyKeyTimer = 1.0f
 	}
 
@@ -46,6 +45,7 @@ class MainMenuState {
 	}
 
 	def update(delta) {
+		this.stopMusic()
 		this.deltaCounter += delta
 		this.pressAnyKeyTimer = this.pressAnyKeyTimer - delta
 	}

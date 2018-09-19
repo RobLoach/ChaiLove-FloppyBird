@@ -13,6 +13,8 @@ class GameState {
 
 	def enter() {
 		assets["music1"].play()
+		assets["music2"].stop()
+		assets["music3"].stop()
 	}
 
 	def exit() {
