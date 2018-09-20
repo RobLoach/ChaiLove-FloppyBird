@@ -23,7 +23,7 @@ global cheatFly = false
  */
 def conf(t) {
 	t.identity = "floppybird"
-	t.version = "0.24.0" // Version of ChaiLove
+	t.version = "0.26.0" // Version of ChaiLove
 	t.window.title = "Floppy Bird";
 	t.window.width = 480;
 	t.window.height = 480;
