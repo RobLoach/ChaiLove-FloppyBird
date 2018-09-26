@@ -4,6 +4,8 @@
 
 [![Floppy Bird Gameplay](screenshot.png)](https://www.youtube.com/watch?v=RLVwTh6qDFI&hd=1)
 
+See the [video demo](https://www.youtube.com/watch?v=RLVwTh6qDFI&t=29s) to see Floppy Bird in action.
+
 ## Install
 
 1. Run [RetroArch](http://retroarch.com/)
