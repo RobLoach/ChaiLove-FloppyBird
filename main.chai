@@ -1,3 +1,10 @@
+// Module Dependencies
+require("lib/StateMachine")
+require("GameState")
+require("MainMenuState")
+require("Pipe")
+require("Bird")
+
 global bird
 global assets
 global pipes = List()
@@ -23,7 +30,7 @@ global cheatFly = false
  */
 def conf(t) {
 	t.identity = "floppybird"
-	t.version = "0.26.0" // Version of ChaiLove
+	t.version = "0.27.0" // Version of ChaiLove
 	t.window.title = "Floppy Bird";
 	t.window.width = 480;
 	t.window.height = 480;
@@ -34,7 +41,6 @@ def conf(t) {
  */
 def load() {
 	// Set up the State Manager.
-	love.filesystem.load("lib/StateMachine.chai")
 	states = StateMachine()
 
 	// Set up the background.
@@ -45,16 +51,12 @@ def load() {
 
 	// Load all asset files.
 	love.filesystem.load("assets.chai")
-	love.filesystem.load("Bird.chai")
-	love.filesystem.load("Pipe.chai")
 
-	// Construct the assets.
+	// Construct the asxsets.
 	bird = Bird()
 	landTop = love.graphics.getHeight() - assets["land"].getHeight()
 
 	// Set up the Game States
-	love.filesystem.load("MainMenuState.chai")
-	love.filesystem.load("GameState.chai")
 	states.add("menu", MainMenuState())
 	states.add("game", GameState())
 	states.set("menu")
