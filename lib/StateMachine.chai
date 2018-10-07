@@ -29,8 +29,6 @@ class NullState {
 }
 
 class StateMachine {
-	var states
-	var currentState
 
 	def StateMachine() {
 		this.states = [

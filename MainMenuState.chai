@@ -1,11 +1,4 @@
 class MainMenuState {
-	var titlefont
-	var font
-	var deltaCounter
-	var logo
-	var textwidth
-	var textheight
-	var pressAnyKeyTimer
 
 	def MainMenuState() {
 		// TODO(RobLoach): Fix the font

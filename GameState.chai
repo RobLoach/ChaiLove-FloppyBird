@@ -1,8 +1,4 @@
 class GameState {
-	var pause
-	var pauseText
-	var pauseWidth
-	var pauseHeight
 
 	def GameState() {
 		this.pause = false

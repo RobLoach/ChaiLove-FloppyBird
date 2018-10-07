@@ -1,14 +1,4 @@
 class Pipe {
-	var x
-	var y
-	var scored
-	var width
-	var height
-	var img
-	var top
-	var openingHeight
-	var opening
-	var sourcequad
 
 	def serialize() {
 		return [

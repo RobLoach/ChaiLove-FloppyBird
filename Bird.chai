@@ -1,16 +1,4 @@
 class Bird {
-	var x
-	var y
-	var width
-	var height
-	var yspeed
-	var speed
-	var ygravity
-	var img
-	var animationslide
-	var ox
-	var oy
-	var collisionPadding
 
 	def serialize() {
 		return [
