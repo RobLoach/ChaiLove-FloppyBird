@@ -28,7 +28,7 @@ class Bird {
 
 		this.img = []
 		for (var i = 0; i <= 3; ++i) {
-			this.img.push_back(love.graphics.newImage("assets/bird" + to_string(i) + ".png"))
+			this.img.push_back_ref(love.graphics.newImage("assets/bird" + to_string(i) + ".png"))
 		}
 		this.width = this.img[0].getWidth()
 		this.height = this.img[0].getHeight() / 4

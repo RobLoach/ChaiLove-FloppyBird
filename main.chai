@@ -90,8 +90,8 @@ def addPipe() {
 	var openSize = openingSize + love.math.random(-openingSizeRange, openingSizeRange)
 
 	// Add the pipes to the game.
-	pipes.push_back(Pipe(opening, true, openSize))
-	pipes.push_back(Pipe(opening, false, openSize))
+	pipes.push_back_ref(Pipe(opening, true, openSize))
+	pipes.push_back_ref(Pipe(opening, false, openSize))
 }
 
 /**
