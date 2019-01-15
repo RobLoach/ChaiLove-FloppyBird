@@ -152,13 +152,6 @@ def joystickpressed(joy, button) {
 }
 
 /**
- * Callback; Called when a mouse button is tapped.
- */
-def mousepressed(x, y, button) {
-	joystickpressed(0, "a")
-}
-
-/**
  * Adds a point to the score.
  */
 def addScore() {
