@@ -66,12 +66,12 @@ class GameState {
 
 		landX += bird.speed * delta
 		if (landX >= assets["land"].getWidth()) {
-			landX = 0.0f
+			landX -= assets["land"].getWidth()
 		}
 
 		skyX += bird.speed / 2 * delta
 		if (skyX >= assets["sky"].getWidth()) {
-			skyX = 0.0f
+			skyX -= assets["sky"].getWidth()
 		}
 
 		if (!isMusicPlaying()) {
@@ -88,7 +88,7 @@ class GameState {
 
 		flapTimer += delta
 	}
-	
+
 	def load() {
 		// Nothing.
 	}
