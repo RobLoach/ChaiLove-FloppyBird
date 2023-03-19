@@ -12,7 +12,7 @@ assets = [
 	"music2": love.sound.newSoundData("assets/sounds/music2.ogg"),
 	"music3": love.sound.newSoundData("assets/sounds/music3.ogg"),
 	"font-big": love.graphics.newFont("assets/font_bignumbers.png", 24, 36, "0123456789"),
-	"font-pixel": love.graphics.newFont("assets/font_pixel-18x16.png", 18, 16, " !*+,-./0123\"456789:;<=#>?@ABCDEFG$HIJKLMNOPQ%RSTUWXYZ[&/\\]^_''(){|}~ "),
+	"font-pixel": love.graphics.newFont("assets/font_pixel-18x16.png", 18, 16, " !*+,-./0123\"456789:;<=#>?@ABCDEFG$HIJKLMNOPQ%RSTUVWXYZ[&/\\]^_`'(){|}~"),
 	"logo": love.graphics.newImage("assets/logo.png")
 ]
 
