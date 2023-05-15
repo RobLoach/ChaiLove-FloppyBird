@@ -1,9 +1,8 @@
 class MainMenuState {
 
 	def MainMenuState() {
-		// TODO(RobLoach): Fix the font
-		this.description = "PRESS ANZ BUTTON"
-		this.credits = "BZ ROB LOACH"
+		this.description = "PRESS ANY BUTTON"
+		this.credits = "BY ROB LOACH"
 		this.font := assets["font-pixel"]
 		this.deltaCounter = 0.0f
 		this.logo := assets["logo"]

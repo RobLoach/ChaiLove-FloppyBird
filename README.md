@@ -33,7 +33,7 @@ See the [video demo](https://www.youtube.com/watch?v=RLVwTh6qDFI&t=29s) to see F
 
 ## Attribution
 
-The ChaiLove source is under the [MIT license](LICENSE.md). Many of the assets included are [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). The authors of the works are listed below...
+Floppy Bird is licensed under [GPL3](COPYING). Many of the assets included are [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/). The authors of the works are listed below...
 
 - [Rob Loach](http://robloach.net)
 - [Music Loop Variations](https://opengameart.org/content/music-loop-variations) by [Oddroom](https://opengameart.org/users/oddroom)
