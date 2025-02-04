@@ -141,6 +141,13 @@ def gamepadpressed(joy, button) {
 }
 
 /**
+ * Callback; Called when a joystick button is hit.
+ */
+def mousepressed(x, y, button) {
+	states.joystickpressed("a")
+}
+
+/**
  * Adds a point to the score.
  */
 def addScore() {
