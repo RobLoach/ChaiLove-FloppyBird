@@ -32,10 +32,10 @@ class Bird {
 			this.img.push_back_ref(love.graphics.newImage("assets/bird" + to_string(imageId) + ".png"))
 		}
 		this.width = this.img[0].getWidth()
-		this.height = this.img[0].getHeight() / 4
+		this.height = this.img[0].getHeight()
 
-		this.ox = this.img[0].getWidth() / 2.0f
-		this.oy = this.img[0].getWidth() / 2.0f
+		this.ox = this.width / 2.0f
+		this.oy = this.height / 2.0f
 	}
 
 	def left() {
@@ -90,7 +90,7 @@ class Bird {
 
 		if (this.yspeed < 0 && this.top() < 0) {
 			this.yspeed = 0
-			this.y = this.collisionPadding
+			this.y = this.height / 2.0f
 		}
 
 		return true
