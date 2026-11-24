@@ -51,13 +51,21 @@ def load() {
 	states.set("menu")
 
 	// Bring all the game entities to ground zero.
-	reset()
+	newGame()
 }
 
 /**
- * Callback; Reset all entities and content.
+ * Callback; Called when RetroArch resets the game.
  */
 def reset() {
+	newGame()
+	states.set("menu")
+}
+
+/**
+ * Reset all entities and content for a new round.
+ */
+def newGame() {
 	pipes.clear()
 	addPipe()
 	bird.reset()

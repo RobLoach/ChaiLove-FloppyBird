@@ -8,6 +8,7 @@ class GameState {
 	}
 
 	def enter() {
+		this.pause = false
 		assets["music1"].play()
 		assets["music2"].stop()
 		assets["music3"].stop()
