@@ -26,7 +26,13 @@ class GameState {
 
 		// Update the bird position, resetting if needed.
 		if (bird.update(delta) == false) {
+			assets["swooshing"].play()
 			states.set("menu")
+			return
+		}
+
+		// After hitting a pipe, let the bird fall to the ground.
+		if (!bird.alive) {
 			return
 		}
 
@@ -36,7 +42,7 @@ class GameState {
 			// Check collisions with any pipes.
 			if (pipe.collide(bird)) {
 				assets["hit"].play()
-				states.set("menu")
+				bird.alive = false
 				return
 			}
 
@@ -108,7 +114,7 @@ class GameState {
 			return
 		}
 
-		if (!this.pause) {
+		if (!this.pause && bird.alive) {
 			if (flapTimer > flapTimerMax) {
 				bird.flap(false)
 				flapTimer = 0.0f
