@@ -45,7 +45,7 @@ class StateMachine {
 	}
 
 	def get(stateName) {
-		return this.state[stateName]
+		return this.states[stateName]
 	}
 
 	def set(newState) {

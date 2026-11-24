@@ -104,9 +104,7 @@ class GameState {
 		if (button == "start") {
 			this.pause = !this.pause
 			assets["point"].play()
-			assets["music1"].stop()
-			assets["music2"].stop()
-			assets["music3"].stop()
+			stopMusic()
 			return
 		}
 

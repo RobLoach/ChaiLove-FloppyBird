@@ -180,6 +180,12 @@ def isMusicPlaying() {
 	return false
 }
 
+def stopMusic() {
+	assets["music1"].stop()
+	assets["music2"].stop()
+	assets["music3"].stop()
+}
+
 /**
  * Callback; Save the current state as a JSON string.
  */
@@ -193,6 +199,7 @@ def savestate() {
 		"highscore": highscore,
 		"bird": bird.serialize(),
 		"currentState": states.getCurrentName(),
+		"pause": states.get("game").pause,
 		"pipes": pipeInfo,
 		"openingSize": openingSize,
 		"openingSizeRange": openingSizeRange,
@@ -214,7 +221,11 @@ def loadstate(data) {
 	var info = from_json(data)
 	highscore = info["highscore"]
 	bird.deserialize(info["bird"])
-	states.currentState = info["currentState"]
+	states.set(info["currentState"])
+	if (info.count("pause") > 0 && info["pause"]) {
+		states.get("game").pause = true
+		stopMusic()
+	}
 	score = info["score"]
 	pipes.clear()
 	for (pipe : info["pipes"]) {
